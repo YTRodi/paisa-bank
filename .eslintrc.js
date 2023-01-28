@@ -15,6 +15,11 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   plugins: ['react'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     'no-console': [
       'error',
