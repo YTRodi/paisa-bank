@@ -4,14 +4,7 @@
     "strict": true,
     "baseUrl": "./src",
     "paths": {
-      "~/components": ["./components"],
-      "~/config": ["./config"],
-      "~/context": ["./context"],
-      "~/hooks": ["./hooks"],
-      "~/screens": ["./screens"],
-      "~/styles": ["./styles"],
-      "~/types": ["./types"],
-      "~/utils": ["./utils"]
+      "~/*": ["./*"]
     }
   }
 }
