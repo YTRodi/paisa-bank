@@ -1,4 +1,5 @@
-import { SafeAreaView, TextInput } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { SafeAreaView } from 'react-native'
 
 import {
   Box,
@@ -7,6 +8,7 @@ import {
   Text,
   FormElement,
   Button,
+  TextInput,
 } from '~/components'
 import { useTheme } from '~/hooks'
 import { STRINGS } from '~/resources'
@@ -26,16 +28,25 @@ const {
 
 export const Login = () => {
   const theme = useTheme()
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  // TODO: me quedé acá integrando zod + rhf
+  const { control } = useForm()
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors.$mainBackground }}
+      // style={{ flex: 1, backgroundColor: theme.colors.$mainBackground }}
+      style={{ flex: 1, backgroundColor: theme.colors.lightblueLight }}
     >
       {/* TODO: create <Form /> */}
       <Box flex={1} paddingHorizontal="md">
         <Box flex={1} justifyContent="center">
           <LoginHeader />
-          <LoginFormFields />
+          <LoginFormFields control={control} />
         </Box>
         <LoginFooter />
       </Box>
@@ -55,28 +66,27 @@ const LoginHeader = () => {
   )
 }
 
-const LoginFormFields = () => {
+// eslint-disable-next-line react/prop-types
+const LoginFormFields = ({ control }) => {
   return (
     <Box>
       <FormElement label={EMAIL_INPUT_LABEL} marginBottom="xl">
-        {/* TODO: create custom <TextInput /> */}
         <TextInput
+          control={control}
+          name="email"
           placeholder={EMAIL_INPUT_PLACEHOLDER}
-          style={{
-            backgroundColor: 'white',
-            // TODO: boxShadow, placeholder, placeholderColor
-          }}
         />
       </FormElement>
       <FormElement label={PASSWORD_INPUT_LABEL} marginBottom="md">
         <TextInput
+          control={control}
+          name="password"
           placeholder={PASSWORD_INPUT_PLACEHOLDER}
-          style={{ backgroundColor: 'white' }}
         />
       </FormElement>
       <Box flexDirection="row">
         {/* TODO: implement checkbox */}
-        <Text color="$remindMeText">[_]</Text>
+        <Text color="$remindMeText">[X]</Text>
         <Text color="$remindMeText" marginLeft="xs">
           {REMIND_ME}
         </Text>
@@ -97,7 +107,7 @@ const LoginFooter = () => {
 const LoginSignUpSection = ({ ...props }: BoxProps) => {
   return (
     <Box alignItems="center" {...props}>
-      <Text color="$loginSignUpText">
+      <Text color="$loginSignUpText" variant="$body">
         {DONT_HAVE_AN_ACCOUNT} <Text color="$brand">{REGISTER_HERE}</Text>
       </Text>
     </Box>
