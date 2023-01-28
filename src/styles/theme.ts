@@ -55,6 +55,7 @@ const theme = createTheme({
     // Tokens
     $mainBackground: palette.grayLightest,
     $mainForeground: palette.white,
+    $brand: palette.bluePrimary,
 
     $primaryBankCardBackground: palette.bluePrimary,
     $primaryBankCardText: palette.white,
@@ -100,10 +101,46 @@ const theme = createTheme({
     $divider: palette.grayLigher, // Recents, All, HR
   },
   textVariants: {
-    // $heading: palette.black, // Contactos
-    // $subHeading: palette.black, // Servicios / Últimas transacciones
-    // $body: palette.grayDarkest, // Email, contraseña, Hola Paisanx, Adobe
-    // $caption: palette.black, // Pago de suscripción, Pago recibido, +8643307899
+    // Email, contraseña, Hola Paisanx, Adobe
+    defaults: {
+      fontFamily: 'Poppins_400Regular',
+    },
+    $brand: {
+      fontFamily: 'Poppins_500Medium',
+      fontWeight: 500,
+      fontSize: 40,
+      lineHeight: 60,
+      letterSpacing: -1.5,
+      color: '$brand',
+    },
+    // Contactos
+    $heading: {
+      fontFamily: 'Poppins_500Medium',
+      fontWeight: 500,
+      fontSize: 22,
+      lineHeight: 28,
+    },
+    // Servicios, Últimas transacciones
+    $subheading: {
+      fontFamily: 'Poppins_500Medium',
+      fontWeight: 500,
+      fontSize: 20,
+      lineHeight: 26,
+    },
+    // Email
+    $body: {
+      fontFamily: 'Poppins_500Medium',
+      fontWeight: 500,
+      fontSize: 16,
+      lineHeight: 22,
+    },
+    // Placeholder, recordarme (bold)
+    $small: {
+      fontFamily: 'Poppins_400Regular',
+      fontWeight: 400,
+      fontSize: 12,
+      lineHeight: 18,
+    },
   },
   spacing: {
     '0': 0,
