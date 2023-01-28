@@ -115,7 +115,7 @@ const theme = createTheme({
     },
     $brand: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 40,
       lineHeight: 60,
       letterSpacing: -1.5,
@@ -123,7 +123,7 @@ const theme = createTheme({
     },
     $brandText: {
       fontFamily: 'Poppins_400Regular',
-      fontWeight: 400,
+      fontWeight: '400',
       fontSize: 16,
       lineHeight: 24,
       color: 'grayPrimary',
@@ -131,28 +131,33 @@ const theme = createTheme({
     // Contactos
     $heading: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 22,
       lineHeight: 28,
     },
     // Servicios, Últimas transacciones
     $subheading: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 20,
       lineHeight: 26,
     },
-    // Email
+    // Email label
     $body: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 16,
       lineHeight: 22,
+    },
+    $input: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 14,
+      lineHeight: 20,
     },
     // Placeholder, recordarme (bold)
     $small: {
       fontFamily: 'Poppins_400Regular',
-      fontWeight: 400,
+      fontWeight: '400',
       fontSize: 12,
       lineHeight: 18,
     },
