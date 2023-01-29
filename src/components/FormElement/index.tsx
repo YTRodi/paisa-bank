@@ -16,7 +16,7 @@ export const FormElement = ({
   return (
     <Box {...rest}>
       {label ? (
-        <Text color="$inputLabel" marginBottom="md">
+        <Text color="$inputLabel" marginBottom="md" variant="$body">
           {label}
         </Text>
       ) : null}
