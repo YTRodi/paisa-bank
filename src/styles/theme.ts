@@ -99,6 +99,7 @@ const theme = createTheme({
 
     $inputLabel: palette.grayDarkest, // Email, contraseña
     $inputPlaceholder: palette.grayLigher, // Ingresa tu email, ingresa tu contraseña
+    $inputError: palette.redPrimary,
     $loginSignUpText: palette.grayDarker,
     $remindMeText: palette.grayDarker,
     $greetingText: palette.grayDarker,
