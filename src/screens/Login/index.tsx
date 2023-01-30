@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { type Control, useForm, type FormState } from 'react-hook-form'
-import { SafeAreaView } from 'react-native'
+import { Alert, SafeAreaView } from 'react-native'
 
 import {
   Box,
@@ -10,6 +10,7 @@ import {
   FormElement,
   Button,
   TextInput,
+  Checkbox,
 } from '~/components'
 import { useTheme } from '~/hooks'
 import { STRINGS } from '~/resources'
@@ -18,6 +19,7 @@ import { LOGIN_SCHEMA } from '~/schemas'
 export interface LoginFormValues {
   email: string
   password: string
+  remindMe: boolean
 }
 
 const {
@@ -38,8 +40,7 @@ export const Login = () => {
 
   return (
     <SafeAreaView
-      // style={{ flex: 1, backgroundColor: theme.colors.$mainBackground }}
-      style={{ flex: 1, backgroundColor: theme.colors.lightblueLight }}
+      style={{ flex: 1, backgroundColor: theme.colors.$mainBackground }}
     >
       <LoginForm />
     </SafeAreaView>
@@ -60,8 +61,7 @@ const LoginForm = () => {
       return
     }
 
-    // eslint-disable-next-line no-console
-    console.log(data)
+    Alert.alert('Credentials', JSON.stringify(data, null, 2))
   }
 
   return (
@@ -116,8 +116,7 @@ const LoginFormFields = ({
         />
       </FormElement>
       <Box flexDirection="row">
-        {/* TODO: implement checkbox */}
-        <Text color="$remindMeText">[X]</Text>
+        <Checkbox control={control} name="remindMe" />
         <Text color="$remindMeText" marginLeft="xs">
           {REMIND_ME}
         </Text>
