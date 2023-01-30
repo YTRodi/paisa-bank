@@ -31,6 +31,12 @@ const palette = {
 
 const theme = createTheme({
   colors: {
+    grayLightest: palette.grayLightest,
+    grayLigher: palette.grayLigher,
+    grayPrimary: palette.grayPrimary,
+    grayDarker: palette.grayDarker,
+    grayDarkest: palette.grayDarkest,
+
     blueLight: palette.blueLight,
     bluePrimary: palette.bluePrimary,
 
@@ -63,6 +69,7 @@ const theme = createTheme({
     $secondaryBankCardBackground: palette.redLight,
     $secondaryBankCardText: palette.white,
 
+    $buttonDisabled: palette.grayLigher,
     $primaryButtonBackground: palette.bluePrimary,
     $primaryButtonText: palette.white,
 
@@ -90,9 +97,13 @@ const theme = createTheme({
     $quaternaryIconBackground: palette.lightblueLight,
     $quaternaryIcon: palette.lightbluePrimary,
 
-    $inputLabel: palette.black, // Email, contraseña
-    $inputPlaceholder: palette.black, // Ingresa tu email, ingresa tu contraseña
-    $signUpText: palette.grayDarker,
+    $inputLabel: palette.grayDarkest, // Email, contraseña
+    $inputPlaceholder: palette.grayLigher, // Ingresa tu email, ingresa tu contraseña
+    $inputError: palette.redPrimary,
+    $checkboxBackground: palette.grayLigher,
+    $checkboxChecked: palette.bluePrimary,
+    $loginSignUpText: palette.grayDarker,
+    $remindMeText: palette.grayDarker,
     $greetingText: palette.grayDarker,
     $screenTitle: palette.grayDarkest, // Contactos
     $screenSubtitle: palette.grayDarkest, // Servicios, últimas transacciones
@@ -107,37 +118,49 @@ const theme = createTheme({
     },
     $brand: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 40,
       lineHeight: 60,
       letterSpacing: -1.5,
       color: '$brand',
     },
+    $brandText: {
+      fontFamily: 'Poppins_400Regular',
+      fontWeight: '400',
+      fontSize: 16,
+      lineHeight: 24,
+      color: 'grayPrimary',
+    },
     // Contactos
     $heading: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 22,
       lineHeight: 28,
     },
     // Servicios, Últimas transacciones
     $subheading: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 20,
       lineHeight: 26,
     },
-    // Email
+    // Email label
     $body: {
       fontFamily: 'Poppins_500Medium',
-      fontWeight: 500,
+      fontWeight: '500',
       fontSize: 16,
       lineHeight: 22,
+    },
+    $input: {
+      fontFamily: 'Poppins_400Regular',
+      fontSize: 14,
+      lineHeight: 20,
     },
     // Placeholder, recordarme (bold)
     $small: {
       fontFamily: 'Poppins_400Regular',
-      fontWeight: 400,
+      fontWeight: '400',
       fontSize: 12,
       lineHeight: 18,
     },
@@ -152,10 +175,19 @@ const theme = createTheme({
     xl: 24,
     '2xl': 28,
     '3xl': 32,
+    '4xl': 36,
+    '5xl': 40,
   },
   breakpoints: {
     phone: 0,
     tablet: 768,
+  },
+  borderRadii: {
+    xxs: 4,
+    xs: 8,
+    sm: 12,
+    md: 16,
+    lg: 24,
   },
 })
 

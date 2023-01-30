@@ -1,8 +1,5 @@
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View } from 'react-native'
-
-import { Box, Text } from '~/components'
 import { AppProviders } from '~/context'
+import { Login } from '~/screens'
 
 export default function App() {
   return (
@@ -13,26 +10,5 @@ export default function App() {
 }
 
 const AppState = () => {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Box>
-        <Text variant="$brand">PaisaBank</Text>
-        <Text variant="$heading">heading</Text>
-        <Text variant="$subheading">subheading</Text>
-        <Text variant="$body">body</Text>
-        <Text variant="$small">small</Text>
-        <Text variant="$body">Hola Paisanx</Text>
-      </Box>
-    </View>
-  )
+  return <Login />
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
