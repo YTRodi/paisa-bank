@@ -101,6 +101,7 @@ const LoginFormFields = ({
           control={control}
           error={errors.email?.message}
           hasError={Boolean(errors.email)}
+          keyboardType="email-address"
           name="email"
           placeholder={EMAIL_INPUT_PLACEHOLDER}
         />
