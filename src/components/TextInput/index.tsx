@@ -10,7 +10,7 @@ import {
   type TextInputProps as RNTextInputProps,
 } from 'react-native'
 
-import { Box } from '../Box'
+import { ShadowBox } from '../Box'
 import { Text } from '../Text'
 
 import { useTheme } from '~/hooks'
@@ -42,8 +42,6 @@ export const TextInput = <T extends FieldValues>({
   ...rest
 }: TextInputProps<T>) => {
   const theme = useTheme()
-  // TODO: secureTextEntry
-  // const [showPassword, toggleShowPassword] = useToggle()
   const controllerProps = {
     name,
     control,
@@ -53,7 +51,7 @@ export const TextInput = <T extends FieldValues>({
   }
 
   return (
-    <Box>
+    <ShadowBox>
       <Controller
         render={({ field: { value, onBlur, onChange } }) => {
           return (
@@ -80,6 +78,6 @@ export const TextInput = <T extends FieldValues>({
           {error}
         </Text>
       ) : null}
-    </Box>
+    </ShadowBox>
   )
 }
