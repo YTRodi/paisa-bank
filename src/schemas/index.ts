@@ -12,6 +12,7 @@ const LOGIN_SCHEMA = yup
       .required(EMAIL_INPUT_ERRORS.REQUIRED)
       .email(EMAIL_INPUT_ERRORS.INVALID),
     password: yup.string().required(PASSWORD_INPUT_ERRORS.REQUIRED),
+    remindMe: yup.boolean().default(false),
   })
   .required()
 
