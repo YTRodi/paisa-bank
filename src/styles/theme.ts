@@ -100,6 +100,8 @@ const theme = createTheme({
     $inputLabel: palette.grayDarkest, // Email, contraseña
     $inputPlaceholder: palette.grayLigher, // Ingresa tu email, ingresa tu contraseña
     $inputError: palette.redPrimary,
+    $checkboxBackground: palette.grayLigher,
+    $checkboxChecked: palette.bluePrimary,
     $loginSignUpText: palette.grayDarker,
     $remindMeText: palette.grayDarker,
     $greetingText: palette.grayDarker,
@@ -181,6 +183,8 @@ const theme = createTheme({
     tablet: 768,
   },
   borderRadii: {
+    xxs: 4,
+    xs: 8,
     sm: 12,
     md: 16,
     lg: 24,
