@@ -1,5 +1,5 @@
 import { Box, ShadowBox } from '../Box'
-import { MastercardIcon, VisaIcon } from '../Icons'
+import { Icon, IconEnum } from '../Icon'
 import { Text } from '../Text'
 
 import { STRINGS } from '~/resources'
@@ -91,8 +91,8 @@ const Issuer = ({ issuer }: Pick<BankCardProps, 'issuer'>) => {
     <Box>
       {
         {
-          mastercard: <MastercardIcon />,
-          visa: <VisaIcon />,
+          mastercard: <Icon icon={IconEnum.MASTERCARD} size={34} />,
+          visa: <Icon icon={IconEnum.VISA} size={42} />,
         }[issuer]
       }
     </Box>

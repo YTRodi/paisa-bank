@@ -25,6 +25,25 @@ export const STRINGS = {
   HOME: {
     GREETING: 'Hola',
     NAME: 'Paisanx', // TODO: should come from the authenticated user
+    SECTIONS: {
+      SERVICES: {
+        TITLE: 'Servicios',
+        ACTION_NAMES: {
+          FIRST: 'Billetera',
+          SECOND: 'Transferir',
+          THIRD: 'Pagar',
+          FOURTH: 'Recargar',
+        },
+      },
+      LASTEST_TRANSACTIONS: {
+        TITLE: 'Últimas transacciones',
+        ACTION_NAMES: {
+          SUS: 'Pago de suscripción',
+          CASH_IN: 'Pago recibido',
+          CASH_OUT: 'Pago enviado',
+        },
+      },
+    },
   },
 
   // Components

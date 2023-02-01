@@ -6,19 +6,23 @@ import {
   BankCard,
   type BankCardProps,
   Box,
-  NotificationIcon,
   ScreenLayout,
   ScrollBox,
-  SearchIcon,
   Text,
+  IconicButton,
+  IconEnum,
+  Icon,
+  type IconicButtonProps,
 } from '~/components'
 import { STRINGS } from '~/resources'
 import { type HomeScreenProps } from '~/types'
 
 type Props = HomeScreenProps
+type Service = Pick<IconicButtonProps, 'icon' | 'color' | 'label'>
 
 const width = Dimensions.get('window').width
-const { GREETING, NAME } = STRINGS.HOME
+const { GREETING, NAME, SECTIONS } = STRINGS.HOME
+const { SERVICES } = SECTIONS
 const MOCK_DATA = [
   {
     id: 1,
@@ -39,6 +43,30 @@ const MOCK_DATA = [
     currency: 'USD',
   },
 ] satisfies BankCardProps[]
+// @String-resource
+const SERVICES_LIST: Service[] = [
+  {
+    label: SERVICES.ACTION_NAMES.FIRST,
+    icon: IconEnum.WALLET,
+    color: 'greenPrimary',
+  },
+  {
+    label: SERVICES.ACTION_NAMES.SECOND,
+    icon: IconEnum.TRANSFER,
+    color: 'orangePrimary',
+  },
+  {
+    label: SERVICES.ACTION_NAMES.THIRD,
+    icon: IconEnum.PAY,
+    color: 'purplePrimary',
+  },
+  {
+    label: SERVICES.ACTION_NAMES.FOURTH,
+    icon: IconEnum.RECHARGE,
+    color: 'lightbluePrimary',
+  },
+]
+const NUM_COLUMNS = SERVICES_LIST.length
 
 export const Home = (props: Props) => {
   return (
@@ -46,6 +74,9 @@ export const Home = (props: Props) => {
       <ScrollBox paddingTop="4xl">
         <HomeHeader />
         <BankCardsCarousel />
+        <Box marginTop="3xl" paddingHorizontal="md">
+          <Services />
+        </Box>
       </ScrollBox>
     </ScreenLayout>
   )
@@ -60,14 +91,16 @@ const HomeHeader = () => {
       paddingHorizontal="md"
     >
       <Box>
-        <Text variant="$body1">{GREETING}</Text>
+        <Text fontFamily="Poppins_400Regular" variant="$body1">
+          {GREETING}
+        </Text>
         <Text fontFamily="Poppins_600SemiBold" variant="$heading">
           {NAME}
         </Text>
       </Box>
       <Box flexDirection="row">
-        <SearchIcon marginRight="xl" />
-        <NotificationIcon />
+        <Icon icon={IconEnum.SEARCH} marginRight="xl" />
+        <Icon icon={IconEnum.NOTIFICATION} />
       </Box>
     </Box>
   )
@@ -91,5 +124,29 @@ const BankCardsCarousel = () => {
         width={width}
       />
     </GestureHandlerRootView>
+  )
+}
+
+const Services = () => {
+  return (
+    <Box>
+      <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
+        {SERVICES.TITLE}
+      </Text>
+      <Box flex={4} flexDirection="row">
+        {SERVICES_LIST.map((service, index) => {
+          return (
+            <IconicButton
+              key={service.label}
+              flex={1}
+              marginLeft={index % NUM_COLUMNS !== 0 ? 'xl' : '0'}
+              size={24}
+              onPress={() => {}}
+              {...service}
+            />
+          )
+        })}
+      </Box>
+    </Box>
   )
 }
