@@ -1,10 +1,12 @@
 import { createBox, type BoxProps as RestyleBoxProps } from '@shopify/restyle'
 import { type ReactNode } from 'react'
+import { ScrollView, type ScrollViewProps } from 'react-native'
 
 import { type Theme } from '~/styles/theme'
 
 export const Box = createBox<Theme>()
 export type BoxProps = RestyleBoxProps<Theme>
+export const ScrollBox = createBox<Theme, ScrollViewProps>(ScrollView)
 
 export const ShadowBox = ({
   children,

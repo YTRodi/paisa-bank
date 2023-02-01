@@ -46,7 +46,7 @@ export const Button = ({
         {isLoading ? (
           <ActivityIndicator color={theme.colors.$primaryButtonText} />
         ) : (
-          <Text color="$primaryButtonText" variant="$body">
+          <Text color="$primaryButtonText" variant="$body1">
             {label}
           </Text>
         )}

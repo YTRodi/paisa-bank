@@ -13,7 +13,12 @@ export const RootStackNavigator = () => {
   const { isLoggedIn } = useAuthStore()
 
   return (
-    <RootStack.Navigator initialRouteName="Login">
+    <RootStack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       {!isLoggedIn ? (
         <RootStack.Group>
           <RootStack.Screen component={Login} name="Login" />
@@ -32,7 +37,7 @@ const AuthenticatedBottomTab =
   createBottomTabNavigator<AuthenticatedBottomTabParamList>()
 const AuthenticatedBottomTabNavigator = () => {
   return (
-    <AuthenticatedBottomTab.Navigator>
+    <AuthenticatedBottomTab.Navigator screenOptions={{ headerShown: false }}>
       <AuthenticatedBottomTab.Screen component={Home} name="Home" />
       <AuthenticatedBottomTab.Screen component={Contacts} name="Contacts" />
     </AuthenticatedBottomTab.Navigator>

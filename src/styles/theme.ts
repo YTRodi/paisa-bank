@@ -1,3 +1,4 @@
+import { type ColorProps as RestyleColorProps } from '@shopify/restyle'
 import { createTheme } from '@shopify/restyle'
 
 const palette = {
@@ -64,10 +65,10 @@ const theme = createTheme({
     $brand: palette.bluePrimary,
 
     $primaryBankCardBackground: palette.bluePrimary,
-    $primaryBankCardText: palette.white,
-
-    $secondaryBankCardBackground: palette.redLight,
-    $secondaryBankCardText: palette.white,
+    $primaryBankCardCurrencyBackground: palette.blueLight,
+    $secondaryBankCardBackground: palette.redPrimary,
+    $secondaryBankCardCurrencyBackground: palette.redLight,
+    $bankCardText: palette.white,
 
     $buttonDisabled: palette.grayLigher,
     $primaryButtonBackground: palette.bluePrimary,
@@ -146,13 +147,14 @@ const theme = createTheme({
       lineHeight: 26,
     },
     // Email label
-    $body: {
+    $body1: {
       fontFamily: 'Poppins_500Medium',
       fontWeight: '500',
       fontSize: 16,
       lineHeight: 22,
     },
-    $input: {
+    // Input
+    $body2: {
       fontFamily: 'Poppins_400Regular',
       fontSize: 14,
       lineHeight: 20,
@@ -192,4 +194,5 @@ const theme = createTheme({
 })
 
 export type Theme = typeof theme
+export type ColorProps = RestyleColorProps<Theme>
 export default theme

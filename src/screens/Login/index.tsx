@@ -138,7 +138,7 @@ const LoginFormFooter = ({ onSubmit }: { onSubmit: () => void }) => {
 const LoginSignUpSection = ({ ...props }: BoxProps) => {
   return (
     <Box alignItems="center" {...props}>
-      <Text color="$loginSignUpText" variant="$body">
+      <Text color="$loginSignUpText" variant="$body1">
         {DONT_HAVE_AN_ACCOUNT} <Text color="$brand">{REGISTER_HERE}</Text>
       </Text>
     </Box>
