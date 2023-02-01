@@ -1,15 +1,16 @@
-import { Box } from '../Box'
+import { Box, ShadowBox } from '../Box'
 import { MastercardIcon, VisaIcon } from '../Icons'
 import { Text } from '../Text'
 
 import { STRINGS } from '~/resources'
 import { type ColorProps } from '~/styles/theme'
 
-interface BankCardProps {
-  brand: 'mastercard' | 'visa'
+export interface BankCardProps {
+  id: number
+  issuer: 'mastercard' | 'visa'
   currency: string
   balance: string
-  holderName: string
+  name: string
   lastDigits: number
   expDate: string
 }
@@ -20,17 +21,17 @@ const bankCardTextColor: ColorProps = {
 const { BALANCE, EXPIRY_DATE } = STRINGS.BANK_CARD
 
 export const BankCard = ({
-  brand,
+  issuer,
   currency,
   balance,
-  holderName,
+  name,
   lastDigits,
   expDate,
 }: BankCardProps) => {
   return (
-    <Box
+    <ShadowBox
       backgroundColor={
-        brand === 'mastercard'
+        issuer === 'mastercard'
           ? '$primaryBankCardBackground'
           : '$secondaryBankCardBackground'
       }
@@ -38,18 +39,18 @@ export const BankCard = ({
       paddingHorizontal="xl"
       paddingVertical="md"
     >
-      <BankCardHeader balance={balance} brand={brand} currency={currency} />
+      <BankCardHeader balance={balance} currency={currency} issuer={issuer} />
       <BankCardBody lastDigits={lastDigits} />
-      <BankCardFooter expDate={expDate} holderName={holderName} />
-    </Box>
+      <BankCardFooter expDate={expDate} name={name} />
+    </ShadowBox>
   )
 }
 
 const BankCardHeader = ({
-  brand,
+  issuer,
   currency,
   balance,
-}: Pick<BankCardProps, 'brand' | 'currency' | 'balance'>) => {
+}: Pick<BankCardProps, 'issuer' | 'currency' | 'balance'>) => {
   return (
     <Box
       alignItems="flex-start"
@@ -57,24 +58,24 @@ const BankCardHeader = ({
       justifyContent="space-between"
       marginBottom="xl"
     >
-      <Balance balance={balance} brand={brand} currency={currency} />
-      <Brand brand={brand} />
+      <Balance balance={balance} currency={currency} issuer={issuer} />
+      <Issuer issuer={issuer} />
     </Box>
   )
 }
 
 const Balance = ({
-  brand,
+  issuer,
   currency,
   balance,
-}: Pick<BankCardProps, 'brand' | 'currency' | 'balance'>) => {
+}: Pick<BankCardProps, 'issuer' | 'currency' | 'balance'>) => {
   return (
     <Box flex={1}>
       <Text {...bankCardTextColor} marginBottom="xs" variant="$body2">
         {BALANCE}
       </Text>
       <Box alignItems="center" flexDirection="row">
-        <CurrencyBox brand={brand} currency={currency} />
+        <CurrencyBox currency={currency} issuer={issuer} />
         <Box flex={1}>
           <Text {...bankCardTextColor} marginLeft="xs" variant="$heading">
             {balance}
@@ -85,27 +86,27 @@ const Balance = ({
   )
 }
 
-const Brand = ({ brand }: Pick<BankCardProps, 'brand'>) => {
+const Issuer = ({ issuer }: Pick<BankCardProps, 'issuer'>) => {
   return (
     <Box>
       {
         {
           mastercard: <MastercardIcon />,
           visa: <VisaIcon />,
-        }[brand]
+        }[issuer]
       }
     </Box>
   )
 }
 
 const CurrencyBox = ({
-  brand,
+  issuer,
   currency,
-}: Pick<BankCardProps, 'brand' | 'currency'>) => {
+}: Pick<BankCardProps, 'issuer' | 'currency'>) => {
   return (
     <Box
       backgroundColor={
-        brand === 'mastercard'
+        issuer === 'mastercard'
           ? '$primaryBankCardCurrencyBackground'
           : '$secondaryBankCardCurrencyBackground'
       }
@@ -150,18 +151,18 @@ const FirstDigits = () => {
 }
 
 const BankCardFooter = ({
-  holderName,
+  name,
   expDate,
-}: Pick<BankCardProps, 'holderName' | 'expDate'>) => {
+}: Pick<BankCardProps, 'name' | 'expDate'>) => {
   return (
-    <Box alignItems="center" flex={1} flexDirection="row">
+    <Box alignItems="center" flexDirection="row">
       <Box flex={1}>
         <Text
           {...bankCardTextColor}
           fontFamily="Poppins_400Regular"
           variant="$body1"
         >
-          {holderName}
+          {name}
         </Text>
       </Box>
       <Box alignItems="center">
@@ -178,6 +179,7 @@ const BankCardFooter = ({
           fontFamily="Poppins_500Medium"
           variant="$small"
         >
+          {/* TODO: format this date! */}
           {expDate}
         </Text>
       </Box>

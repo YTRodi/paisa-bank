@@ -1,5 +1,10 @@
+import { Dimensions } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Carousel from 'react-native-reanimated-carousel'
+
 import {
   BankCard,
+  type BankCardProps,
   Box,
   NotificationIcon,
   ScreenLayout,
@@ -12,14 +17,35 @@ import { type HomeScreenProps } from '~/types'
 
 type Props = HomeScreenProps
 
+const width = Dimensions.get('window').width
 const { GREETING, NAME } = STRINGS.HOME
+const MOCK_DATA = [
+  {
+    id: 1,
+    issuer: 'mastercard',
+    name: 'Soy Paisanx',
+    expDate: '2026-03-20',
+    lastDigits: 1234,
+    balance: '978,85',
+    currency: 'USD',
+  },
+  {
+    id: 2,
+    issuer: 'visa',
+    name: 'Soy Paisanx',
+    expDate: '2027-03-20',
+    lastDigits: 1234,
+    balance: '1000,10',
+    currency: 'USD',
+  },
+] satisfies BankCardProps[]
 
 export const Home = (props: Props) => {
   return (
     <ScreenLayout>
-      <ScrollBox borderWidth={1} paddingHorizontal="md">
+      <ScrollBox paddingTop="4xl">
         <HomeHeader />
-        <BankCards />
+        <BankCardsCarousel />
       </ScrollBox>
     </ScreenLayout>
   )
@@ -27,7 +53,12 @@ export const Home = (props: Props) => {
 
 const HomeHeader = () => {
   return (
-    <Box alignItems="center" flexDirection="row" justifyContent="space-between">
+    <Box
+      alignItems="center"
+      flexDirection="row"
+      justifyContent="space-between"
+      paddingHorizontal="md"
+    >
       <Box>
         <Text variant="$body1">{GREETING}</Text>
         <Text fontFamily="Poppins_600SemiBold" variant="$heading">
@@ -42,19 +73,23 @@ const HomeHeader = () => {
   )
 }
 
-const BankCards = () => {
-  // TODO: horizontal cards (find lib to show only one bankCard in screen) "Carousel"
-
+const BankCardsCarousel = () => {
   return (
-    <Box marginTop="3xl">
-      <BankCard
-        balance="978.85"
-        brand="mastercard"
-        currency="USD"
-        expDate="02/30"
-        holderName="Soy Paisanx"
-        lastDigits={1234}
+    <GestureHandlerRootView>
+      <Carousel
+        data={MOCK_DATA}
+        height={width / 2}
+        loop={false}
+        mode="parallax"
+        modeConfig={{
+          parallaxScrollingOffset: width / 4,
+        }}
+        renderItem={({ item }) => {
+          return <BankCard {...item} />
+        }}
+        scrollAnimationDuration={600}
+        width={width}
       />
-    </Box>
+    </GestureHandlerRootView>
   )
 }
