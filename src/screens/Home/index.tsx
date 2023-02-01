@@ -10,19 +10,21 @@ import {
   ScrollBox,
   Text,
   IconicButton,
-  IconEnum,
   Icon,
   type IconicButtonProps,
+  TransactionCard,
+  type TransactionCardProps,
 } from '~/components'
 import { STRINGS } from '~/resources'
-import { type HomeScreenProps } from '~/types'
+import { IconEnum, TransactionTypeEnum, type HomeScreenProps } from '~/types'
 
 type Props = HomeScreenProps
 type Service = Pick<IconicButtonProps, 'icon' | 'color' | 'label'>
+type Transaction = Pick<TransactionCardProps, 'title' | 'amount' | 'type'>
 
 const width = Dimensions.get('window').width
 const { GREETING, NAME, SECTIONS } = STRINGS.HOME
-const { SERVICES } = SECTIONS
+const { SERVICES, TRANSACTIONS } = SECTIONS
 const MOCK_DATA = [
   {
     id: 1,
@@ -43,7 +45,6 @@ const MOCK_DATA = [
     currency: 'USD',
   },
 ] satisfies BankCardProps[]
-// @String-resource
 const SERVICES_LIST: Service[] = [
   {
     label: SERVICES.ACTION_NAMES.FIRST,
@@ -66,16 +67,34 @@ const SERVICES_LIST: Service[] = [
     color: 'lightbluePrimary',
   },
 ]
-const NUM_COLUMNS = SERVICES_LIST.length
+const SERVICES_NUM_COLUMNS = SERVICES_LIST.length
+const LATEST_TRANSACTIONS_LIST: Transaction[] = [
+  {
+    title: 'Adobe',
+    amount: '125,00',
+    type: TransactionTypeEnum.SUS,
+  },
+  {
+    title: 'Juan David',
+    amount: '95,00',
+    type: TransactionTypeEnum.CASH_IN,
+  },
+  {
+    title: 'Jorge Cruz',
+    amount: '95,00',
+    type: TransactionTypeEnum.CASH_OUT,
+  },
+]
 
 export const Home = (props: Props) => {
   return (
     <ScreenLayout>
-      <ScrollBox paddingTop="4xl">
+      <ScrollBox>
         <HomeHeader />
         <BankCardsCarousel />
         <Box marginTop="3xl" paddingHorizontal="md">
           <Services />
+          <LatestTransactions />
         </Box>
       </ScrollBox>
     </ScreenLayout>
@@ -139,10 +158,31 @@ const Services = () => {
             <IconicButton
               key={service.label}
               flex={1}
-              marginLeft={index % NUM_COLUMNS !== 0 ? 'xl' : '0'}
+              marginLeft={index % SERVICES_NUM_COLUMNS !== 0 ? 'xl' : '0'}
               size={24}
               onPress={() => {}}
               {...service}
+            />
+          )
+        })}
+      </Box>
+    </Box>
+  )
+}
+
+const LatestTransactions = () => {
+  return (
+    <Box marginTop="3xl">
+      <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
+        {TRANSACTIONS.TITLE}
+      </Text>
+      <Box>
+        {LATEST_TRANSACTIONS_LIST.map((transaction, index) => {
+          return (
+            <TransactionCard
+              key={transaction.title}
+              marginTop={index !== 0 ? 'xl' : '0'}
+              {...transaction}
             />
           )
         })}

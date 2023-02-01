@@ -35,13 +35,8 @@ export const STRINGS = {
           FOURTH: 'Recargar',
         },
       },
-      LASTEST_TRANSACTIONS: {
+      TRANSACTIONS: {
         TITLE: 'Últimas transacciones',
-        ACTION_NAMES: {
-          SUS: 'Pago de suscripción',
-          CASH_IN: 'Pago recibido',
-          CASH_OUT: 'Pago enviado',
-        },
       },
     },
   },
@@ -50,5 +45,10 @@ export const STRINGS = {
   BANK_CARD: {
     BALANCE: 'Balance',
     EXPIRY_DATE: 'Exp. Date',
+  },
+  TRANSACTION_CARD: {
+    SUS: 'Pago de suscripción',
+    CASH_IN: 'Pago recibido',
+    CASH_OUT: 'Pago enviado',
   },
 }

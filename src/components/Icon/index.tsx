@@ -15,20 +15,7 @@ import Visa from '../../../assets/icons/visa.svg'
 import Wallet from '../../../assets/icons/wallet.svg'
 
 import { type Theme } from '~/styles/theme'
-
-export enum IconEnum {
-  SEARCH,
-  NOTIFICATION,
-  MASTERCARD,
-  VISA,
-  WALLET,
-  TRANSFER,
-  PAY,
-  RECHARGE,
-  SUS,
-  CASH_IN,
-  CASH_OUT,
-}
+import { IconEnum } from '~/types'
 
 const BaseIconLala = createText<Theme, SvgProps>(Svg)
 export type IconProps = {

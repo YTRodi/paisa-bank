@@ -1,9 +1,10 @@
 import { Box, ShadowBox } from '../Box'
-import { Icon, IconEnum } from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../Text'
 
 import { STRINGS } from '~/resources'
 import { type ColorProps } from '~/styles/theme'
+import { IconEnum } from '~/types'
 
 export interface BankCardProps {
   id: number

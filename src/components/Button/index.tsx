@@ -6,12 +6,13 @@ import {
   type TouchableOpacityProps,
 } from 'react-native'
 
-import { Box } from '../Box'
-import { Icon, IconEnum, type IconProps } from '../Icon'
+import { Box, ShadowBox } from '../Box'
+import { Icon, type IconProps } from '../Icon'
 import { Text } from '../Text'
 
 import { useTheme } from '~/hooks'
 import { type ColorProps, type Theme } from '~/styles/theme'
+import { IconEnum } from '~/types'
 
 const BaseButton = createBox<Theme, TouchableOpacityProps>(TouchableOpacity)
 
@@ -92,7 +93,7 @@ export const IconicButton = ({
 
   return (
     <BaseButton activeOpacity={activeOpacity} {...rest}>
-      <Box
+      <ShadowBox
         alignItems="center"
         backgroundColor={getBackgroundColor()}
         borderRadius="md"
@@ -100,7 +101,7 @@ export const IconicButton = ({
         padding="xl"
       >
         <Icon {...iconProps} />
-      </Box>
+      </ShadowBox>
       <Text
         color="$cardTitle"
         marginTop="md"
