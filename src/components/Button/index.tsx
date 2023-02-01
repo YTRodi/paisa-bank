@@ -6,11 +6,13 @@ import {
   type TouchableOpacityProps,
 } from 'react-native'
 
-import { Box } from '../Box'
+import { Box, ShadowBox } from '../Box'
+import { Icon, type IconProps } from '../Icon'
 import { Text } from '../Text'
 
 import { useTheme } from '~/hooks'
-import { type Theme } from '~/styles/theme'
+import { type ColorProps, type Theme } from '~/styles/theme'
+import { IconEnum } from '~/types'
 
 const BaseButton = createBox<Theme, TouchableOpacityProps>(TouchableOpacity)
 
@@ -35,22 +37,79 @@ export const Button = ({
       {...rest}
     >
       <Box
-        backgroundColor={
-          disabled ? '$buttonDisabled' : '$primaryButtonBackground'
-        }
+        backgroundColor={disabled ? '$buttonDisabled' : '$buttonBackground'}
         borderRadius="md"
         flexDirection="row"
         justifyContent="center"
         padding="md"
       >
         {isLoading ? (
-          <ActivityIndicator color={theme.colors.$primaryButtonText} />
+          <ActivityIndicator color={theme.colors.$buttonText} />
         ) : (
-          <Text color="$primaryButtonText" variant="$body">
+          <Text color="$buttonText" variant="$body1">
             {label}
           </Text>
         )}
       </Box>
+    </BaseButton>
+  )
+}
+
+export type IconicButtonProps = Omit<ButtonProps, 'isLoading'> & IconProps
+
+export const IconicButton = ({
+  label,
+  activeOpacity = 0.7,
+  icon = IconEnum.WALLET,
+  color,
+  size,
+  ...rest
+}: Omit<ButtonProps, 'isLoading'> & IconProps) => {
+  const iconProps = {
+    icon,
+    size,
+    color,
+  }
+  const getBackgroundColor = (): ColorProps['color'] => {
+    let backgroundColor: ColorProps['color'] = '$mainBackground'
+
+    switch (color) {
+      case 'greenPrimary':
+        backgroundColor = 'greenLight'
+        break
+      case 'orangePrimary':
+        backgroundColor = 'orangeLight'
+        break
+      case 'purplePrimary':
+        backgroundColor = 'purpleLight'
+        break
+      case 'lightbluePrimary':
+        backgroundColor = 'lightblueLight'
+        break
+    }
+
+    return backgroundColor
+  }
+
+  return (
+    <BaseButton activeOpacity={activeOpacity} {...rest}>
+      <ShadowBox
+        alignItems="center"
+        backgroundColor={getBackgroundColor()}
+        borderRadius="md"
+        justifyContent="center"
+        padding="xl"
+      >
+        <Icon {...iconProps} />
+      </ShadowBox>
+      <Text
+        color="$cardTitle"
+        marginTop="md"
+        textAlign="center"
+        variant="$body1"
+      >
+        {label}
+      </Text>
     </BaseButton>
   )
 }

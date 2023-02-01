@@ -1,6 +1,7 @@
 import { BRAND_NAME } from '~/constants'
 
 export const STRINGS = {
+  // Screens
   LOGIN: {
     BRAND_NAME,
     BRAND_TEXT: 'Comienza a manejar tu vida financiera',
@@ -20,5 +21,34 @@ export const STRINGS = {
     DONT_HAVE_AN_ACCOUNT: 'No tienes cuenta?',
     REGISTER_HERE: 'Regístrate',
     LOGIN_BUTTON: 'Ingresar',
+  },
+  HOME: {
+    GREETING: 'Hola',
+    NAME: 'Paisanx', // TODO: should come from the authenticated user
+    SECTIONS: {
+      SERVICES: {
+        TITLE: 'Servicios',
+        ACTION_NAMES: {
+          FIRST: 'Billetera',
+          SECOND: 'Transferir',
+          THIRD: 'Pagar',
+          FOURTH: 'Recargar',
+        },
+      },
+      TRANSACTIONS: {
+        TITLE: 'Últimas transacciones',
+      },
+    },
+  },
+
+  // Components
+  BANK_CARD: {
+    BALANCE: 'Balance',
+    EXPIRY_DATE: 'Exp. Date',
+  },
+  TRANSACTION_CARD: {
+    SUS: 'Pago de suscripción',
+    CASH_IN: 'Pago recibido',
+    CASH_OUT: 'Pago enviado',
   },
 }

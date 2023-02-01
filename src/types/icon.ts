@@ -1,0 +1,13 @@
+export enum IconEnum {
+  SEARCH,
+  NOTIFICATION,
+  MASTERCARD,
+  VISA,
+  WALLET,
+  TRANSFER,
+  PAY,
+  RECHARGE,
+  SUS,
+  CASH_IN,
+  CASH_OUT,
+}

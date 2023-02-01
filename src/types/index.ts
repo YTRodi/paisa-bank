@@ -1,2 +1,5 @@
 export * from './navigation'
+export * from './operations'
 export * from './store'
+export * from './icon'
+export * from './color'

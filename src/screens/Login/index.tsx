@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { type Control, useForm, type FormState } from 'react-hook-form'
-import { SafeAreaView } from 'react-native'
 
 import {
   Box,
@@ -11,8 +10,8 @@ import {
   Button,
   TextInput,
   Checkbox,
+  ScreenLayout,
 } from '~/components'
-import { useTheme } from '~/hooks'
 import { STRINGS } from '~/resources'
 import { LOGIN_SCHEMA } from '~/schemas'
 import { useAuthStore } from '~/store'
@@ -40,14 +39,10 @@ const {
 } = STRINGS.LOGIN
 
 export const Login = (props: Props) => {
-  const theme = useTheme()
-
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors.$mainBackground }}
-    >
+    <ScreenLayout>
       <LoginForm />
-    </SafeAreaView>
+    </ScreenLayout>
   )
 }
 
@@ -143,7 +138,7 @@ const LoginFormFooter = ({ onSubmit }: { onSubmit: () => void }) => {
 const LoginSignUpSection = ({ ...props }: BoxProps) => {
   return (
     <Box alignItems="center" {...props}>
-      <Text color="$loginSignUpText" variant="$body">
+      <Text color="$loginSignUpText" variant="$body1">
         {DONT_HAVE_AN_ACCOUNT} <Text color="$brand">{REGISTER_HERE}</Text>
       </Text>
     </Box>

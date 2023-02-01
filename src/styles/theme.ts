@@ -1,3 +1,4 @@
+import { type ColorProps as RestyleColorProps } from '@shopify/restyle'
 import { createTheme } from '@shopify/restyle'
 
 const palette = {
@@ -64,38 +65,14 @@ const theme = createTheme({
     $brand: palette.bluePrimary,
 
     $primaryBankCardBackground: palette.bluePrimary,
-    $primaryBankCardText: palette.white,
-
-    $secondaryBankCardBackground: palette.redLight,
-    $secondaryBankCardText: palette.white,
+    $primaryBankCardCurrencyBackground: palette.blueLight,
+    $secondaryBankCardBackground: palette.redPrimary,
+    $secondaryBankCardCurrencyBackground: palette.redLight,
+    $bankCardText: palette.white,
 
     $buttonDisabled: palette.grayLigher,
-    $primaryButtonBackground: palette.bluePrimary,
-    $primaryButtonText: palette.white,
-
-    $secondaryButtonBackground: palette.greenLight,
-    $secondaryButtonText: palette.greenPrimary,
-
-    $tertiaryButtonBackground: palette.orangeLight,
-    $tertiaryButtonText: palette.orangePrimary,
-
-    $quaternaryButtonBackground: palette.purpleLight,
-    $quaternaryButtonText: palette.purplePrimary,
-
-    $quinaryButtonBackground: palette.lightblueLight,
-    $quinaryButtonText: palette.lightbluePrimary,
-
-    $primaryIconBackground: palette.purpleLight,
-    $primaryIcon: palette.purplePrimary,
-
-    $secondaryIconBackground: palette.greenLight,
-    $secondaryIcon: palette.greenPrimary,
-
-    $tertiaryIconBackground: palette.orangeLight,
-    $tertiaryIcon: palette.orangePrimary,
-
-    $quaternaryIconBackground: palette.lightblueLight,
-    $quaternaryIcon: palette.lightbluePrimary,
+    $buttonBackground: palette.bluePrimary,
+    $buttonText: palette.white,
 
     $inputLabel: palette.grayDarkest, // Email, contraseña
     $inputPlaceholder: palette.grayLigher, // Ingresa tu email, ingresa tu contraseña
@@ -110,6 +87,7 @@ const theme = createTheme({
     $cardTitle: palette.grayDarker, // Billetera, Transferir, Adobe, Juan David
     $cardBody: palette.grayLigher, // Pago de suscripción, +8643307899
     $divider: palette.grayLigher, // Recents, All, HR
+    $defaultIconColor: palette.black,
   },
   textVariants: {
     // Email, contraseña, Hola Paisanx, Adobe
@@ -146,13 +124,14 @@ const theme = createTheme({
       lineHeight: 26,
     },
     // Email label
-    $body: {
+    $body1: {
       fontFamily: 'Poppins_500Medium',
       fontWeight: '500',
       fontSize: 16,
       lineHeight: 22,
     },
-    $input: {
+    // Input
+    $body2: {
       fontFamily: 'Poppins_400Regular',
       fontSize: 14,
       lineHeight: 20,
@@ -192,4 +171,5 @@ const theme = createTheme({
 })
 
 export type Theme = typeof theme
+export type ColorProps = RestyleColorProps<Theme>
 export default theme

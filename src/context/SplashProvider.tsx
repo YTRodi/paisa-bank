@@ -2,6 +2,7 @@ import {
   useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
+  Poppins_600SemiBold,
 } from '@expo-google-fonts/poppins'
 import * as SplashScreen from 'expo-splash-screen'
 import { useCallback, type ReactNode } from 'react'
@@ -13,6 +14,7 @@ export const SplashProvider = ({ children }: { children: ReactNode }) => {
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
+    Poppins_600SemiBold,
   })
 
   const onLayoutRootView = useCallback(async () => {
