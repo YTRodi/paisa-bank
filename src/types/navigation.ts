@@ -16,6 +16,7 @@ export type LoginScreenProps = NativeStackScreenProps<
 export type AuthenticatedBottomTabParamList = {
   Home: undefined
   Contacts: undefined
+  Logout: undefined
 }
 
 export type HomeScreenProps = CompositeScreenProps<
@@ -25,5 +26,10 @@ export type HomeScreenProps = CompositeScreenProps<
 
 export type ContactsScreenProps = CompositeScreenProps<
   BottomTabScreenProps<AuthenticatedBottomTabParamList, 'Contacts'>,
+  NativeStackScreenProps<RootStackParamList>
+>
+
+export type LogoutScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<AuthenticatedBottomTabParamList, 'Logout'>,
   NativeStackScreenProps<RootStackParamList>
 >
