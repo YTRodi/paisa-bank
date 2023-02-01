@@ -1,14 +1,10 @@
 import { AppProviders } from '~/context'
-import { Login } from '~/screens'
+import { RootStackNavigator } from '~/navigation'
 
 export default function App() {
   return (
     <AppProviders>
-      <AppState />
+      <RootStackNavigator />
     </AppProviders>
   )
-}
-
-const AppState = () => {
-  return <Login />
 }

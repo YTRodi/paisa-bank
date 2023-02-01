@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { type Control, useForm, type FormState } from 'react-hook-form'
-import { Alert, SafeAreaView } from 'react-native'
+import { SafeAreaView } from 'react-native'
 
 import {
   Box,
@@ -15,12 +15,16 @@ import {
 import { useTheme } from '~/hooks'
 import { STRINGS } from '~/resources'
 import { LOGIN_SCHEMA } from '~/schemas'
+import { useAuthStore } from '~/store'
+import { type LoginScreenProps } from '~/types'
 
 export interface LoginFormValues {
   email: string
   password: string
   remindMe: boolean
 }
+
+type Props = LoginScreenProps
 
 const {
   BRAND_NAME,
@@ -35,7 +39,7 @@ const {
   LOGIN_BUTTON,
 } = STRINGS.LOGIN
 
-export const Login = () => {
+export const Login = (props: Props) => {
   const theme = useTheme()
 
   return (
@@ -55,13 +59,14 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LOGIN_SCHEMA),
   })
+  const { login } = useAuthStore()
 
-  const onSubmit = (data: LoginFormValues) => {
+  const onSubmit = ({ remindMe }: LoginFormValues) => {
     if (!isValid) {
       return
     }
 
-    Alert.alert('Credentials', JSON.stringify(data, null, 2))
+    login('<real-token>', remindMe)
   }
 
   return (
