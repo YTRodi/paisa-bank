@@ -40,6 +40,14 @@ export const STRINGS = {
       },
     },
   },
+  LOGOUT: {
+    ALERT: {
+      TITLE: 'Cerrar sesión',
+      MESSAGE: 'Estas seguro que quieres cerrar sesión?',
+      FIRST_ACTION: 'Si, cerrar sesión',
+      SECOND_ACTION: 'Cancelar',
+    },
+  },
 
   // Components
   BANK_CARD: {

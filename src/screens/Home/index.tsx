@@ -129,9 +129,9 @@ const BankCardsCarousel = () => {
   return (
     <GestureHandlerRootView>
       <Carousel
+        loop
         data={MOCK_DATA}
         height={width / 2}
-        loop={false}
         mode="parallax"
         modeConfig={{
           parallaxScrollingOffset: width / 4,
@@ -139,7 +139,7 @@ const BankCardsCarousel = () => {
         renderItem={({ item }) => {
           return <BankCard {...item} />
         }}
-        scrollAnimationDuration={600}
+        scrollAnimationDuration={250}
         width={width}
       />
     </GestureHandlerRootView>

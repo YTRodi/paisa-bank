@@ -10,10 +10,11 @@ import {
   type TextInputProps as RNTextInputProps,
 } from 'react-native'
 
-import { ShadowBox } from '../Box'
+import { Box, ShadowBox } from '../Box'
+import { CheckboxBase } from '../Checkbox'
 import { Text } from '../Text'
 
-import { useTheme } from '~/hooks'
+import { useTheme, useToggle } from '~/hooks'
 import { type Theme } from '~/styles/theme'
 
 export const TextInputBase = createBox<Theme, RNTextInputProps>(RNTextInput)
@@ -38,10 +39,11 @@ export const TextInput = <T extends FieldValues>({
   error,
 
   autoCapitalize = 'none',
-  secureTextEntry,
+  secureTextEntry = false,
   ...rest
 }: TextInputProps<T>) => {
   const theme = useTheme()
+  const [showInputText, toggle] = useToggle(secureTextEntry)
   const controllerProps = {
     name,
     control,
@@ -61,7 +63,7 @@ export const TextInput = <T extends FieldValues>({
               borderRadius="sm"
               padding="md"
               placeholderTextColor={theme.colors.$inputPlaceholder}
-              secureTextEntry={secureTextEntry}
+              secureTextEntry={showInputText}
               selectionColor={theme.colors.$brand}
               style={theme.textVariants.$body2}
               value={value}
@@ -77,6 +79,12 @@ export const TextInput = <T extends FieldValues>({
         <Text color="$inputError" marginTop="xs" variant="$small">
           {error}
         </Text>
+      ) : null}
+      {secureTextEntry ? (
+        <Box flexDirection="row" marginTop="md">
+          <CheckboxBase value={!showInputText} onChange={toggle} />
+          <Text marginLeft="xs">Mostrar contraseña</Text>
+        </Box>
       ) : null}
     </ShadowBox>
   )

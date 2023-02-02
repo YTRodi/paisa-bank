@@ -61,6 +61,7 @@ const theme = createTheme({
 
     // Tokens
     $mainBackground: palette.grayLightest,
+    $tabBarBackground: palette.white,
     $mainForeground: palette.white,
     $brand: palette.bluePrimary,
 
@@ -88,6 +89,8 @@ const theme = createTheme({
     $cardBody: palette.grayLigher, // Pago de suscripción, +8643307899
     $divider: palette.grayLigher, // Recents, All, HR
     $defaultIconColor: palette.black,
+    $tabIsSelected: palette.blueLight,
+    $tabIsNotSelected: palette.black,
   },
   textVariants: {
     // Email, contraseña, Hola Paisanx, Adobe

@@ -14,7 +14,9 @@ import { useTheme } from '~/hooks'
 import { type ColorProps, type Theme } from '~/styles/theme'
 import { IconEnum } from '~/types'
 
-const BaseButton = createBox<Theme, TouchableOpacityProps>(TouchableOpacity)
+export const BaseButton = createBox<Theme, TouchableOpacityProps>(
+  TouchableOpacity
+)
 
 type ButtonProps = ComponentProps<typeof BaseButton> & {
   label: string

@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { ThemeProvider } from '@shopify/restyle'
 import { type ReactNode } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { AppStateProvider } from './AppStateProvider'
 import { SplashProvider } from './SplashProvider'
@@ -12,7 +13,9 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
     <AppStateProvider>
       <ThemeProvider theme={theme}>
         <SplashProvider>
-          <NavigationContainer>{children}</NavigationContainer>
+          <SafeAreaProvider>
+            <NavigationContainer>{children}</NavigationContainer>
+          </SafeAreaProvider>
         </SplashProvider>
       </ThemeProvider>
     </AppStateProvider>
