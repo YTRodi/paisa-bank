@@ -1,7 +1,7 @@
 export interface AuthState {
   isLoggedIn: boolean
-  token: string | null
   shouldPersist: boolean
-  login: (token: string, shouldPersist: boolean) => void
+  userName: string | null
+  login: (loginValues: { userName: string; shouldPersist: boolean }) => void
   logout: () => void
 }
