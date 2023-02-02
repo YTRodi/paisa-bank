@@ -6,6 +6,7 @@ import CashIn from '../../../assets/icons/cash-in.svg'
 import CashOut from '../../../assets/icons/cash-out.svg'
 import Contacts from '../../../assets/icons/contacts.svg'
 import Home from '../../../assets/icons/home.svg'
+import LeftArrow from '../../../assets/icons/left-arrow.svg'
 import Logout from '../../../assets/icons/logout.svg'
 import Mastercard from '../../../assets/icons/mastercard.svg'
 import Notification from '../../../assets/icons/notification.svg'
@@ -47,6 +48,7 @@ export const Icon = ({
     [IconEnum.HOME]: Home,
     [IconEnum.CONTACTS]: Contacts,
     [IconEnum.LOGOUT]: Logout,
+    [IconEnum.LEFT_ARROW]: LeftArrow,
   }[icon]
   const BaseIcon = createText<Theme, SvgProps>(IconComponent)
 

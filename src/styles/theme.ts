@@ -78,10 +78,10 @@ const theme = createTheme({
     $inputLabel: palette.grayDarkest, // Email, contraseña
     $inputPlaceholder: palette.grayLigher, // Ingresa tu email, ingresa tu contraseña
     $inputError: palette.redPrimary,
+    $inputHint: palette.grayDarker,
     $checkboxBackground: palette.grayLigher,
     $checkboxChecked: palette.bluePrimary,
     $loginSignUpText: palette.grayDarker,
-    $remindMeText: palette.grayDarker,
     $greetingText: palette.grayDarker,
     $screenTitle: palette.grayDarkest, // Contactos
     $screenSubtitle: palette.grayDarkest, // Servicios, últimas transacciones

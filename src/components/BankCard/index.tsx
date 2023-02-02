@@ -7,8 +7,7 @@ import { type ColorProps } from '~/styles/theme'
 import { IconEnum } from '~/types'
 
 export interface BankCardProps {
-  id: number
-  issuer: 'mastercard' | 'visa'
+  issuer: string
   currency: string
   balance: string
   name: string

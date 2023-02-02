@@ -18,16 +18,16 @@ export const TransactionCardBase = createBox<Theme>()
 export type TransactionCardProps = {
   title: string
   amount: string
-  type: TransactionTypeEnum
+  transactionType: TransactionTypeEnum
 } & ComponentProps<typeof TransactionCardBase>
 
 export const TransactionCard = ({
   title,
   amount,
-  type,
+  transactionType,
   ...rest
 }: TransactionCardProps) => {
-  const colorCombination = getColorCombinationByTransactionType(type)
+  const colorCombination = getColorCombinationByTransactionType(transactionType)
 
   return (
     <ShadowBox
@@ -40,13 +40,16 @@ export const TransactionCard = ({
       {...rest}
     >
       <Box alignItems="center" flex={1} flexDirection="row">
-        <TransactionCardIcon {...colorCombination} type={type} />
+        <TransactionCardIcon
+          {...colorCombination}
+          transactionType={transactionType}
+        />
         <Box flex={1} marginLeft="md">
           <Text color="$cardTitle" marginBottom="xxs" variant="$body1">
             {title}
           </Text>
           <Text color="$cardBody" variant="$small">
-            {getTransactionBodyByTransactionType(type)}
+            {getTransactionBodyByTransactionType(transactionType)}
           </Text>
         </Box>
       </Box>
@@ -64,8 +67,8 @@ export const TransactionCard = ({
 const TransactionCardIcon = ({
   backgroundColor,
   foregroundColor,
-  type,
-}: Pick<TransactionCardProps, 'type'> & ColorCombination) => {
+  transactionType,
+}: Pick<TransactionCardProps, 'transactionType'> & ColorCombination) => {
   return (
     <Box
       alignItems="center"
@@ -74,7 +77,10 @@ const TransactionCardIcon = ({
       justifyContent="center"
       padding="sm"
     >
-      <Icon color={foregroundColor} icon={getIconByTransactionType(type)} />
+      <Icon
+        color={foregroundColor}
+        icon={getIconByTransactionType(transactionType)}
+      />
     </Box>
   )
 }

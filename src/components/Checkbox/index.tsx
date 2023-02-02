@@ -17,9 +17,6 @@ export const ExpoCheckboxBase = createBox<Theme, ExpoCheckboxProps>(
 )
 type ExpoCheckboxBaseProps = ComponentProps<typeof ExpoCheckboxBase>
 
-type CheckboxProps<T extends FieldValues> = Omit<ControllerProps<T>, 'render'> &
-  ExpoCheckboxBaseProps
-
 export const CheckboxBase = ({
   value,
   onChange,
@@ -39,6 +36,9 @@ export const CheckboxBase = ({
     />
   )
 }
+
+type CheckboxProps<T extends FieldValues> = Omit<ControllerProps<T>, 'render'> &
+  ExpoCheckboxBaseProps
 
 export const Checkbox = <T extends FieldValues>({
   name,

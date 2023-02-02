@@ -9,20 +9,25 @@ export const Box = createBox<Theme>()
 export type BoxProps = ComponentProps<typeof Box>
 
 export const BaseScrollBox = createBox<Theme, ScrollViewProps>(ScrollView)
+export type ScrollBoxProps = ComponentProps<typeof BaseScrollBox>
 export const ScrollBox = ({
   children,
+  contentContainerStyle,
   ...rest
-}: BoxProps & { children: ReactNode }) => {
+}: ScrollBoxProps & { children: ReactNode }) => {
   const theme = useTheme()
 
   return (
     <BaseScrollBox
-      {...rest}
-      contentContainerStyle={{
-        paddingVertical: theme.spacing['4xl'],
-      }}
+      contentContainerStyle={[
+        {
+          paddingVertical: theme.spacing['4xl'],
+        },
+        contentContainerStyle,
+      ]}
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
+      {...rest}
     >
       {children}
     </BaseScrollBox>

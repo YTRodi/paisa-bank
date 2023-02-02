@@ -48,6 +48,16 @@ export const STRINGS = {
       SECOND_ACTION: 'Cancelar',
     },
   },
+  CONTACTS: {
+    TITLE: 'Contactos',
+    SEARCH_INPUT: {
+      PLACEHOLDER: 'Ingresa un nombre o un número',
+    },
+    DIVIDER_BY: {
+      RECENTS: 'Recents',
+      ALL: 'All',
+    },
+  },
 
   // Components
   BANK_CARD: {
@@ -58,5 +68,10 @@ export const STRINGS = {
     SUS: 'Pago de suscripción',
     CASH_IN: 'Pago recibido',
     CASH_OUT: 'Pago enviado',
+  },
+  TEXT_INPUT: {
+    HINTS: {
+      SHOW_PASSWORD: 'Mostrar contraseña',
+    },
   },
 }
