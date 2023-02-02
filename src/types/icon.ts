@@ -10,4 +10,7 @@ export enum IconEnum {
   SUS,
   CASH_IN,
   CASH_OUT,
+  HOME,
+  CONTACTS,
+  LOGOUT,
 }

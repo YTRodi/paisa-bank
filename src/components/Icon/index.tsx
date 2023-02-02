@@ -4,6 +4,9 @@ import { Svg, type SvgProps } from 'react-native-svg'
 
 import CashIn from '../../../assets/icons/cash-in.svg'
 import CashOut from '../../../assets/icons/cash-out.svg'
+import Contacts from '../../../assets/icons/contacts.svg'
+import Home from '../../../assets/icons/home.svg'
+import Logout from '../../../assets/icons/logout.svg'
 import Mastercard from '../../../assets/icons/mastercard.svg'
 import Notification from '../../../assets/icons/notification.svg'
 import Pay from '../../../assets/icons/pay.svg'
@@ -41,6 +44,9 @@ export const Icon = ({
     [IconEnum.SUS]: Sus,
     [IconEnum.CASH_IN]: CashIn,
     [IconEnum.CASH_OUT]: CashOut,
+    [IconEnum.HOME]: Home,
+    [IconEnum.CONTACTS]: Contacts,
+    [IconEnum.LOGOUT]: Logout,
   }[icon]
   const BaseIcon = createText<Theme, SvgProps>(IconComponent)
 

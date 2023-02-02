@@ -3,6 +3,7 @@ import { type EventArg } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Alert } from 'react-native'
 
+import { TabBar } from '~/components'
 import { STRINGS } from '~/resources'
 import { Contacts, Home, Login, Logout } from '~/screens'
 import { useAuthStore } from '~/store'
@@ -58,7 +59,12 @@ const AuthenticatedBottomTabNavigator = () => {
   }
 
   return (
-    <AuthenticatedBottomTab.Navigator screenOptions={{ headerShown: false }}>
+    <AuthenticatedBottomTab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      tabBar={(props) => <TabBar {...props} />}
+    >
       <AuthenticatedBottomTab.Screen component={Home} name="Home" />
       <AuthenticatedBottomTab.Screen component={Contacts} name="Contacts" />
       <AuthenticatedBottomTab.Screen
