@@ -56,12 +56,12 @@ const LoginForm = () => {
   })
   const { login } = useAuthStore()
 
-  const onSubmit = ({ remindMe }: LoginFormValues) => {
+  const onSubmit = (data: LoginFormValues) => {
     if (!isValid) {
       return
     }
 
-    login('<real-token>', remindMe)
+    login('<real-token>', data.remindMe)
   }
 
   return (
@@ -118,7 +118,7 @@ const LoginFormFields = ({
       </FormElement>
       <Box flexDirection="row">
         <Checkbox control={control} name="remindMe" />
-        <Text color="$remindMeText" marginLeft="xs">
+        <Text color="$inputHint" marginLeft="xs">
           {REMIND_ME}
         </Text>
       </Box>

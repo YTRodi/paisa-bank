@@ -1,31 +1,30 @@
-import { Dimensions } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Carousel from 'react-native-reanimated-carousel'
 
 import {
   BankCard,
-  type BankCardProps,
   Box,
   ScreenLayout,
   ScrollBox,
   Text,
   IconicButton,
   Icon,
-  type IconicButtonProps,
   TransactionCard,
-  type TransactionCardProps,
 } from '~/components'
 import { STRINGS } from '~/resources'
-import { IconEnum, TransactionTypeEnum, type HomeScreenProps } from '~/types'
+import {
+  type BankCardType,
+  IconEnum,
+  TransactionTypeEnum,
+  type HomeScreenProps,
+  type TransactionType,
+  type ServiceType,
+} from '~/types'
+import { width } from '~/utils'
 
-type Props = HomeScreenProps
-type Service = Pick<IconicButtonProps, 'icon' | 'color' | 'label'>
-type Transaction = Pick<TransactionCardProps, 'title' | 'amount' | 'type'>
-
-const width = Dimensions.get('window').width
 const { GREETING, NAME, SECTIONS } = STRINGS.HOME
 const { SERVICES, TRANSACTIONS } = SECTIONS
-const MOCK_DATA = [
+const CARDS_MOCK = [
   {
     id: 1,
     issuer: 'mastercard',
@@ -44,47 +43,55 @@ const MOCK_DATA = [
     balance: '1000,10',
     currency: 'USD',
   },
-] satisfies BankCardProps[]
-const SERVICES_LIST: Service[] = [
+] satisfies BankCardType[]
+const SERVICES_LIST: ServiceType[] = [
   {
-    label: SERVICES.ACTION_NAMES.FIRST,
+    name: SERVICES.ACTION_NAMES.FIRST,
     icon: IconEnum.WALLET,
     color: 'greenPrimary',
   },
   {
-    label: SERVICES.ACTION_NAMES.SECOND,
+    name: SERVICES.ACTION_NAMES.SECOND,
     icon: IconEnum.TRANSFER,
     color: 'orangePrimary',
   },
   {
-    label: SERVICES.ACTION_NAMES.THIRD,
+    name: SERVICES.ACTION_NAMES.THIRD,
     icon: IconEnum.PAY,
     color: 'purplePrimary',
   },
   {
-    label: SERVICES.ACTION_NAMES.FOURTH,
+    name: SERVICES.ACTION_NAMES.FOURTH,
     icon: IconEnum.RECHARGE,
     color: 'lightbluePrimary',
   },
 ]
 const SERVICES_NUM_COLUMNS = SERVICES_LIST.length
-const LATEST_TRANSACTIONS_LIST: Transaction[] = [
+const LATEST_TRANSACTIONS_LIST = [
   {
+    id: 1,
     title: 'Adobe',
     amount: '125,00',
-    type: TransactionTypeEnum.SUS,
+    transactionType: TransactionTypeEnum.SUS,
+    date: '2023-01-01',
   },
   {
+    id: 2,
     title: 'Juan David',
-    amount: '95,00',
-    type: TransactionTypeEnum.CASH_IN,
+    amount: '99,00',
+    transactionType: TransactionTypeEnum.CASH_IN,
+    date: '2022-12-30',
   },
   {
+    id: 3,
     title: 'Jorge Cruz',
-    amount: '95,00',
-    type: TransactionTypeEnum.CASH_OUT,
+    amount: '10,00',
+    transactionType: TransactionTypeEnum.CASH_OUT,
+    date: '2022-12-29',
   },
-]
+] satisfies TransactionType[]
+
+type Props = HomeScreenProps
 
 export const Home = (props: Props) => {
   return (
@@ -130,7 +137,7 @@ const BankCardsCarousel = () => {
     <GestureHandlerRootView>
       <Carousel
         loop
-        data={MOCK_DATA}
+        data={CARDS_MOCK}
         height={width / 2}
         mode="parallax"
         modeConfig={{
@@ -153,15 +160,16 @@ const Services = () => {
         {SERVICES.TITLE}
       </Text>
       <Box flex={4} flexDirection="row">
-        {SERVICES_LIST.map((service, index) => {
+        {SERVICES_LIST.map(({ name, ...rest }, index) => {
           return (
             <IconicButton
-              key={service.label}
+              key={name}
               flex={1}
+              label={name}
               marginLeft={index % SERVICES_NUM_COLUMNS !== 0 ? 'xl' : '0'}
               size={24}
               onPress={() => {}}
-              {...service}
+              {...rest}
             />
           )
         })}
