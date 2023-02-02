@@ -12,6 +12,7 @@ import {
   Checkbox,
   ScreenLayout,
 } from '~/components'
+import { useLoginMutation } from '~/hooks'
 import { STRINGS } from '~/resources'
 import { LOGIN_SCHEMA } from '~/schemas'
 import { useAuthStore } from '~/store'
@@ -54,14 +55,25 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LOGIN_SCHEMA),
   })
-  const { login } = useAuthStore()
+  const authStore = useAuthStore()
+  const loginMutation = useLoginMutation()
 
-  const onSubmit = (data: LoginFormValues) => {
+  const onSubmit = ({ email, password, remindMe }: LoginFormValues) => {
     if (!isValid) {
       return
     }
 
-    login('<real-token>', data.remindMe)
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: (response) => {
+          authStore.login({
+            userName: response.data.name,
+            shouldPersist: remindMe,
+          })
+        },
+      }
+    )
   }
 
   return (
@@ -70,7 +82,10 @@ const LoginForm = () => {
         <LoginHeader />
         <LoginFormFields control={control} errors={errors} />
       </Box>
-      <LoginFormFooter onSubmit={handleSubmit(onSubmit)} />
+      <LoginFormFooter
+        isLoading={loginMutation.isLoading}
+        onSubmit={handleSubmit(onSubmit)}
+      />
     </Box>
   )
 }
@@ -126,11 +141,17 @@ const LoginFormFields = ({
   )
 }
 
-const LoginFormFooter = ({ onSubmit }: { onSubmit: () => void }) => {
+const LoginFormFooter = ({
+  isLoading,
+  onSubmit,
+}: {
+  isLoading: boolean
+  onSubmit: () => void
+}) => {
   return (
     <Box>
       <LoginSignUpSection marginBottom="2xl" />
-      <Button label={LOGIN_BUTTON} onPress={onSubmit} />
+      <Button isLoading={isLoading} label={LOGIN_BUTTON} onPress={onSubmit} />
     </Box>
   )
 }

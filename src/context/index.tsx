@@ -7,6 +7,7 @@ import { AppStateProvider } from './AppStateProvider'
 import { QueryClientProvider } from './QueryClientProvider'
 import { SplashProvider } from './SplashProvider'
 
+import { CustomToast } from '~/components'
 import theme from '~/styles/theme'
 
 export const AppProviders = ({ children }: { children: ReactNode }) => {
@@ -17,6 +18,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
           <SplashProvider>
             <SafeAreaProvider>
               <NavigationContainer>{children}</NavigationContainer>
+              <CustomToast />
             </SafeAreaProvider>
           </SplashProvider>
         </QueryClientProvider>
