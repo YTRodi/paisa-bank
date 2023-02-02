@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'standard-with-typescript',
     'plugin:react/jsx-runtime',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
     'prettier',
   ],
   parserOptions: {
@@ -14,7 +15,7 @@ module.exports = {
     sourceType: 'module',
     project: ['./tsconfig.json'],
   },
-  plugins: ['react'],
+  plugins: ['react', '@tanstack/query'],
   settings: {
     react: {
       version: 'detect',
@@ -55,6 +56,9 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/consistent-type-assertions': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
+    // TanStack Query
+    '@tanstack/query/exhaustive-deps': 'error',
+    '@tanstack/query/prefer-query-object-syntax': 'error',
   },
   overrides: [
     {
