@@ -1,4 +1,5 @@
 import {
+  BaseButton,
   Box,
   ContactCard,
   Icon,
@@ -11,7 +12,7 @@ import { useTheme } from '~/hooks'
 import { STRINGS } from '~/resources'
 import { type ContactType, IconEnum, type ContactsScreenProps } from '~/types'
 
-const { SEARCH_INPUT, DIVIDER_BY } = STRINGS.CONTACTS
+const { TITLE, SEARCH_INPUT, DIVIDER_BY } = STRINGS.CONTACTS
 const RECENT_CONTACTS_MOCK = [
   {
     id: 5,
@@ -82,7 +83,7 @@ export const Contacts = (props: Props) => {
   return (
     <ScreenLayout>
       <ScrollBox contentContainerStyle={{ paddingHorizontal: commonSpacing }}>
-        <ContactsHeader />
+        <ContactsHeader {...props} />
 
         <Box marginTop="3xl">
           <TextInputBase
@@ -108,14 +109,16 @@ export const Contacts = (props: Props) => {
   )
 }
 
-const ContactsHeader = () => {
+const ContactsHeader = ({ navigation }: Props) => {
   return (
-    <Box alignItems="center" flexDirection="row" justifyContent="flex-start">
-      <Icon icon={IconEnum.LEFT_ARROW} size={16} />
-      <Text marginLeft="xl" variant="$heading">
-        Contactos
-      </Text>
-    </Box>
+    <BaseButton activeOpacity={0.7} onPress={navigation.goBack}>
+      <Box alignItems="center" flexDirection="row" justifyContent="flex-start">
+        <Icon icon={IconEnum.LEFT_ARROW} size={16} />
+        <Text marginLeft="xl" variant="$heading">
+          {TITLE}
+        </Text>
+      </Box>
+    </BaseButton>
   )
 }
 

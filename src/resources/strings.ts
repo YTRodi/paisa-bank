@@ -49,6 +49,7 @@ export const STRINGS = {
     },
   },
   CONTACTS: {
+    TITLE: 'Contactos',
     SEARCH_INPUT: {
       PLACEHOLDER: 'Ingresa un nombre o un número',
     },
