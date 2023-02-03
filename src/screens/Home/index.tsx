@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import {
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from '@tanstack/react-query'
+import { useState } from 'react'
+import { RefreshControl } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Carousel from 'react-native-reanimated-carousel'
 
 import {
-  BankCard,
   Box,
   ScreenLayout,
   ScrollBox,
@@ -10,40 +15,18 @@ import {
   IconicButton,
   Icon,
   TransactionCard,
+  BankCardsCarousel,
+  BankCardsErrorBoundaryWithSuspense,
+  TransactionCardErrorBoundaryWithSuspense,
 } from '~/components'
+import { cardKeys, transactionKeys } from '~/constants'
+import { useGetCardsQuery, useGetTransactions } from '~/hooks'
 import { STRINGS } from '~/resources'
-import {
-  type BankCardType,
-  IconEnum,
-  TransactionTypeEnum,
-  type HomeScreenProps,
-  type TransactionType,
-  type ServiceType,
-} from '~/types'
-import { width } from '~/utils'
+import { IconEnum, type HomeScreenProps, type ServiceType } from '~/types'
 
 const { GREETING, NAME, SECTIONS } = STRINGS.HOME
 const { SERVICES, TRANSACTIONS } = SECTIONS
-const CARDS_MOCK = [
-  {
-    id: 1,
-    issuer: 'mastercard',
-    name: 'Soy Paisanx',
-    expDate: '2026-03-20',
-    lastDigits: 1234,
-    balance: '978,85',
-    currency: 'USD',
-  },
-  {
-    id: 2,
-    issuer: 'visa',
-    name: 'Soy Paisanx',
-    expDate: '2027-03-20',
-    lastDigits: 1234,
-    balance: '1000,10',
-    currency: 'USD',
-  },
-] satisfies BankCardType[]
+
 const SERVICES_LIST: ServiceType[] = [
   {
     name: SERVICES.ACTION_NAMES.FIRST,
@@ -66,42 +49,44 @@ const SERVICES_LIST: ServiceType[] = [
     color: 'lightbluePrimary',
   },
 ]
-const SERVICES_NUM_COLUMNS = SERVICES_LIST.length
-const LATEST_TRANSACTIONS_LIST = [
-  {
-    id: 1,
-    title: 'Adobe',
-    amount: '125,00',
-    transactionType: TransactionTypeEnum.SUS,
-    date: '2023-01-01',
-  },
-  {
-    id: 2,
-    title: 'Juan David',
-    amount: '99,00',
-    transactionType: TransactionTypeEnum.CASH_IN,
-    date: '2022-12-30',
-  },
-  {
-    id: 3,
-    title: 'Jorge Cruz',
-    amount: '10,00',
-    transactionType: TransactionTypeEnum.CASH_OUT,
-    date: '2022-12-29',
-  },
-] satisfies TransactionType[]
 
 type Props = HomeScreenProps
 
 export const Home = (props: Props) => {
+  const { reset } = useQueryErrorResetBoundary()
+  const queryClient = useQueryClient()
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
   return (
     <ScreenLayout>
-      <ScrollBox>
+      <ScrollBox
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={async () => {
+              setIsRefreshing(true)
+              queryClient.invalidateQueries({
+                queryKey: cardKeys.lists(),
+                exact: true,
+              })
+              queryClient.invalidateQueries({
+                queryKey: transactionKeys.lists(),
+                exact: true,
+              })
+              setIsRefreshing(false)
+            }}
+          />
+        }
+      >
         <HomeHeader />
-        <BankCardsCarousel />
-        <Box marginTop="3xl" paddingHorizontal="md">
+        <BankCardsErrorBoundaryWithSuspense onReset={reset}>
+          <BankCardsSection />
+        </BankCardsErrorBoundaryWithSuspense>
+        <Box marginTop="xl" paddingHorizontal="md">
           <Services />
-          <LatestTransactions />
+          <TransactionCardErrorBoundaryWithSuspense onReset={reset}>
+            <LatestTransactionsSection />
+          </TransactionCardErrorBoundaryWithSuspense>
         </Box>
       </ScrollBox>
     </ScreenLayout>
@@ -132,23 +117,12 @@ const HomeHeader = () => {
   )
 }
 
-const BankCardsCarousel = () => {
+const BankCardsSection = () => {
+  const { data } = useGetCardsQuery()
+
   return (
     <GestureHandlerRootView>
-      <Carousel
-        loop
-        data={CARDS_MOCK}
-        height={width / 2}
-        mode="parallax"
-        modeConfig={{
-          parallaxScrollingOffset: width / 4,
-        }}
-        renderItem={({ item }) => {
-          return <BankCard {...item} />
-        }}
-        scrollAnimationDuration={250}
-        width={width}
-      />
+      <BankCardsCarousel data={data?.data ?? []} />
     </GestureHandlerRootView>
   )
 }
@@ -159,42 +133,52 @@ const Services = () => {
       <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
         {SERVICES.TITLE}
       </Text>
-      <Box flex={4} flexDirection="row">
-        {SERVICES_LIST.map(({ name, ...rest }, index) => {
-          return (
-            <IconicButton
-              key={name}
-              flex={1}
-              label={name}
-              marginLeft={index % SERVICES_NUM_COLUMNS !== 0 ? 'xl' : '0'}
-              size={24}
-              onPress={() => {}}
-              {...rest}
-            />
-          )
+      <Box flexDirection="row" justifyContent="space-between">
+        {SERVICES_LIST.map(({ name, ...rest }) => {
+          return <IconicButton key={name} label={name} size={24} {...rest} />
         })}
       </Box>
     </Box>
   )
 }
 
-const LatestTransactions = () => {
+const LatestTransactionsSection = () => {
+  const { reset } = useQueryErrorResetBoundary()
+
   return (
     <Box marginTop="3xl">
       <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
         {TRANSACTIONS.TITLE}
       </Text>
-      <Box>
-        {LATEST_TRANSACTIONS_LIST.map((transaction, index) => {
-          return (
-            <TransactionCard
-              key={transaction.title}
-              marginTop={index !== 0 ? 'xl' : '0'}
-              {...transaction}
-            />
-          )
-        })}
-      </Box>
+      <TransactionCardErrorBoundaryWithSuspense onReset={reset}>
+        <LastestTransactiosList />
+      </TransactionCardErrorBoundaryWithSuspense>
+    </Box>
+  )
+}
+
+const LastestTransactiosList = () => {
+  const { data } = useGetTransactions()
+
+  if (!data) {
+    return null
+  }
+
+  const transactionsOrderedByMostRecent = [...data.data].sort((a, b) => {
+    return new Date(b.date).valueOf() - new Date(a.date).valueOf()
+  })
+
+  return (
+    <Box>
+      {transactionsOrderedByMostRecent.map((transaction, index) => {
+        return (
+          <TransactionCard
+            key={transaction.title}
+            marginTop={index !== 0 ? 'xl' : '0'}
+            {...transaction}
+          />
+        )
+      })}
     </Box>
   )
 }
