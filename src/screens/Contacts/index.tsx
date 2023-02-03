@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   BaseButton,
   Box,
@@ -8,7 +10,11 @@ import {
   Text,
   TextInputBase,
 } from '~/components'
-import { useTheme } from '~/hooks'
+import {
+  //  useDebounce,
+  //   useGetContacts,
+  useTheme,
+} from '~/hooks'
 import { STRINGS } from '~/resources'
 import { type ContactType, IconEnum, type ContactsScreenProps } from '~/types'
 
@@ -78,7 +84,17 @@ type Props = ContactsScreenProps
 
 export const Contacts = (props: Props) => {
   const theme = useTheme()
+  const [query, setQuery] = useState('')
+  // const debouncedQuery = useDebounce(query)
+  // const getContactsQuery = useGetContacts()
+
   const commonSpacing = theme.spacing.md
+
+  // TODO: [] ContactCardSkeleton
+  // TODO: [] ErrorBoundary, Suspense and Skeleton
+  // TODO: [] Validations
+  // TODO: [] Si escribo algo (query !== '') muestro un nuevo divisor con el título "Results for: <query>" y abajo la lista de filtrados
+  // TODO: [] Pasar los textos de "Recents" y "All" a Español
 
   return (
     <ScreenLayout>
@@ -89,6 +105,10 @@ export const Contacts = (props: Props) => {
           <TextInputBase
             leftIcon={IconEnum.SEARCH}
             placeholder={SEARCH_INPUT.PLACEHOLDER}
+            value={query}
+            onChangeText={(text) => {
+              setQuery(text)
+            }}
           />
         </Box>
 
