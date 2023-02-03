@@ -1,6 +1,4 @@
-// TODO: borrar este type ??? y usar las entities!!!
-
-export interface BankCardType {
+export interface CardEntity {
   id: number
   issuer: string
   name: string

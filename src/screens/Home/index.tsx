@@ -1,8 +1,12 @@
+import {
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from '@tanstack/react-query'
+import { useState } from 'react'
+import { RefreshControl } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Carousel from 'react-native-reanimated-carousel'
 
 import {
-  BankCard,
   Box,
   ScreenLayout,
   ScrollBox,
@@ -10,40 +14,23 @@ import {
   IconicButton,
   Icon,
   TransactionCard,
+  BankCardsCarousel,
+  BankCardsErrorBoundaryWithSuspense,
 } from '~/components'
+import { cardKeys } from '~/constants'
+import { useGetCardsQuery } from '~/hooks'
 import { STRINGS } from '~/resources'
 import {
-  type BankCardType,
   IconEnum,
   TransactionTypeEnum,
   type HomeScreenProps,
   type TransactionType,
   type ServiceType,
 } from '~/types'
-import { width } from '~/utils'
 
 const { GREETING, NAME, SECTIONS } = STRINGS.HOME
 const { SERVICES, TRANSACTIONS } = SECTIONS
-const CARDS_MOCK = [
-  {
-    id: 1,
-    issuer: 'mastercard',
-    name: 'Soy Paisanx',
-    expDate: '2026-03-20',
-    lastDigits: 1234,
-    balance: '978,85',
-    currency: 'USD',
-  },
-  {
-    id: 2,
-    issuer: 'visa',
-    name: 'Soy Paisanx',
-    expDate: '2027-03-20',
-    lastDigits: 1234,
-    balance: '1000,10',
-    currency: 'USD',
-  },
-] satisfies BankCardType[]
+
 const SERVICES_LIST: ServiceType[] = [
   {
     name: SERVICES.ACTION_NAMES.FIRST,
@@ -66,7 +53,7 @@ const SERVICES_LIST: ServiceType[] = [
     color: 'lightbluePrimary',
   },
 ]
-const SERVICES_NUM_COLUMNS = SERVICES_LIST.length
+
 const LATEST_TRANSACTIONS_LIST = [
   {
     id: 1,
@@ -94,12 +81,31 @@ const LATEST_TRANSACTIONS_LIST = [
 type Props = HomeScreenProps
 
 export const Home = (props: Props) => {
+  const { reset } = useQueryErrorResetBoundary()
+  const queryClient = useQueryClient()
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
   return (
     <ScreenLayout>
-      <ScrollBox>
+      <ScrollBox
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={async () => {
+              setIsRefreshing(true)
+              await queryClient.invalidateQueries({
+                queryKey: cardKeys.lists(),
+              })
+              setIsRefreshing(false)
+            }}
+          />
+        }
+      >
         <HomeHeader />
-        <BankCardsCarousel />
-        <Box marginTop="3xl" paddingHorizontal="md">
+        <BankCardsErrorBoundaryWithSuspense onReset={reset}>
+          <BankCardsCarouselSection />
+        </BankCardsErrorBoundaryWithSuspense>
+        <Box marginTop="xl" paddingHorizontal="md">
           <Services />
           <LatestTransactions />
         </Box>
@@ -132,23 +138,12 @@ const HomeHeader = () => {
   )
 }
 
-const BankCardsCarousel = () => {
+const BankCardsCarouselSection = () => {
+  const { data } = useGetCardsQuery()
+
   return (
     <GestureHandlerRootView>
-      <Carousel
-        loop
-        data={CARDS_MOCK}
-        height={width / 2}
-        mode="parallax"
-        modeConfig={{
-          parallaxScrollingOffset: width / 4,
-        }}
-        renderItem={({ item }) => {
-          return <BankCard {...item} />
-        }}
-        scrollAnimationDuration={250}
-        width={width}
-      />
+      <BankCardsCarousel data={data?.data ?? []} />
     </GestureHandlerRootView>
   )
 }
@@ -159,19 +154,9 @@ const Services = () => {
       <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
         {SERVICES.TITLE}
       </Text>
-      <Box flex={4} flexDirection="row">
-        {SERVICES_LIST.map(({ name, ...rest }, index) => {
-          return (
-            <IconicButton
-              key={name}
-              flex={1}
-              label={name}
-              marginLeft={index % SERVICES_NUM_COLUMNS !== 0 ? 'xl' : '0'}
-              size={24}
-              onPress={() => {}}
-              {...rest}
-            />
-          )
+      <Box flexDirection="row" justifyContent="space-between">
+        {SERVICES_LIST.map(({ name, ...rest }) => {
+          return <IconicButton key={name} label={name} size={24} {...rest} />
         })}
       </Box>
     </Box>

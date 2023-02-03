@@ -63,6 +63,9 @@ export const STRINGS = {
   BANK_CARD: {
     BALANCE: 'Balance',
     EXPIRY_DATE: 'Exp. Date',
+    FALLBACK: {
+      DEFAULT_BODY_ERROR: 'No se pudieron cargar las tarjetas',
+    },
   },
   TRANSACTION_CARD: {
     SUS: 'Pago de suscripción',
@@ -73,5 +76,10 @@ export const STRINGS = {
     HINTS: {
       SHOW_PASSWORD: 'Mostrar contraseña',
     },
+  },
+
+  FALLBACK: {
+    DEFAULT_TITLE: 'Ocurrió un error',
+    TRY_AGAIN_LABEL: 'Intentar de nuevo',
   },
 }
