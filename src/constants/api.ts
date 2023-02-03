@@ -18,3 +18,11 @@ export const transactionKeys = {
   details: () => [...transactionKeys.all, 'detail'] as const,
   detail: (id: number) => [...transactionKeys.details(), id] as const,
 }
+
+export const contactKeys = {
+  all: ['contacts'] as const,
+  lists: () => [...contactKeys.all, 'list'] as const,
+  list: (filters: string) => [...contactKeys.lists(), { filters }] as const,
+  details: () => [...contactKeys.all, 'detail'] as const,
+  detail: (id: number) => [...contactKeys.details(), id] as const,
+}

@@ -14,3 +14,9 @@ export const getTransactions = async (): Promise<GetTransactionsResponse> => {
 
   return response.data
 }
+
+export const getContacts = async (): Promise<GetTransactionsResponse> => {
+  const response = await apiClient.get(ENDPOINTS.CONTACTS)
+
+  return response.data
+}

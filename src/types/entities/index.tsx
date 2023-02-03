@@ -15,5 +15,13 @@ export interface TransactionEntity {
   title: string
   amount: string
   transactionType: TransactionTypeEnum
-  date: string
+  date: string // yyyy-mm-dd
+}
+
+export interface ContactEntity {
+  id: number
+  name: string
+  lastName: string
+  phone: string
+  addedDate: string // yyyy-mm-dd
 }
