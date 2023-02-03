@@ -71,6 +71,9 @@ export const STRINGS = {
     SUS: 'Pago de suscripción',
     CASH_IN: 'Pago recibido',
     CASH_OUT: 'Pago enviado',
+    FALLBACK: {
+      DEFAULT_BODY_ERROR: 'No se pudieron cargar las transacciones',
+    },
   },
   TEXT_INPUT: {
     HINTS: {

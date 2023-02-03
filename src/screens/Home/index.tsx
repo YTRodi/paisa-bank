@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   useQueryClient,
   useQueryErrorResetBoundary,
@@ -16,17 +17,12 @@ import {
   TransactionCard,
   BankCardsCarousel,
   BankCardsErrorBoundaryWithSuspense,
+  TransactionCardErrorBoundaryWithSuspense,
 } from '~/components'
-import { cardKeys } from '~/constants'
-import { useGetCardsQuery } from '~/hooks'
+import { cardKeys, transactionKeys } from '~/constants'
+import { useGetCardsQuery, useGetTransactions } from '~/hooks'
 import { STRINGS } from '~/resources'
-import {
-  IconEnum,
-  TransactionTypeEnum,
-  type HomeScreenProps,
-  type TransactionType,
-  type ServiceType,
-} from '~/types'
+import { IconEnum, type HomeScreenProps, type ServiceType } from '~/types'
 
 const { GREETING, NAME, SECTIONS } = STRINGS.HOME
 const { SERVICES, TRANSACTIONS } = SECTIONS
@@ -54,30 +50,6 @@ const SERVICES_LIST: ServiceType[] = [
   },
 ]
 
-const LATEST_TRANSACTIONS_LIST = [
-  {
-    id: 1,
-    title: 'Adobe',
-    amount: '125,00',
-    transactionType: TransactionTypeEnum.SUS,
-    date: '2023-01-01',
-  },
-  {
-    id: 2,
-    title: 'Juan David',
-    amount: '99,00',
-    transactionType: TransactionTypeEnum.CASH_IN,
-    date: '2022-12-30',
-  },
-  {
-    id: 3,
-    title: 'Jorge Cruz',
-    amount: '10,00',
-    transactionType: TransactionTypeEnum.CASH_OUT,
-    date: '2022-12-29',
-  },
-] satisfies TransactionType[]
-
 type Props = HomeScreenProps
 
 export const Home = (props: Props) => {
@@ -93,8 +65,13 @@ export const Home = (props: Props) => {
             refreshing={isRefreshing}
             onRefresh={async () => {
               setIsRefreshing(true)
-              await queryClient.invalidateQueries({
+              queryClient.invalidateQueries({
                 queryKey: cardKeys.lists(),
+                exact: true,
+              })
+              queryClient.invalidateQueries({
+                queryKey: transactionKeys.lists(),
+                exact: true,
               })
               setIsRefreshing(false)
             }}
@@ -103,11 +80,13 @@ export const Home = (props: Props) => {
       >
         <HomeHeader />
         <BankCardsErrorBoundaryWithSuspense onReset={reset}>
-          <BankCardsCarouselSection />
+          <BankCardsSection />
         </BankCardsErrorBoundaryWithSuspense>
         <Box marginTop="xl" paddingHorizontal="md">
           <Services />
-          <LatestTransactions />
+          <TransactionCardErrorBoundaryWithSuspense onReset={reset}>
+            <LatestTransactionsSection />
+          </TransactionCardErrorBoundaryWithSuspense>
         </Box>
       </ScrollBox>
     </ScreenLayout>
@@ -138,7 +117,7 @@ const HomeHeader = () => {
   )
 }
 
-const BankCardsCarouselSection = () => {
+const BankCardsSection = () => {
   const { data } = useGetCardsQuery()
 
   return (
@@ -163,23 +142,35 @@ const Services = () => {
   )
 }
 
-const LatestTransactions = () => {
+const LatestTransactionsSection = () => {
+  const { reset } = useQueryErrorResetBoundary()
+
   return (
     <Box marginTop="3xl">
       <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
         {TRANSACTIONS.TITLE}
       </Text>
-      <Box>
-        {LATEST_TRANSACTIONS_LIST.map((transaction, index) => {
-          return (
-            <TransactionCard
-              key={transaction.title}
-              marginTop={index !== 0 ? 'xl' : '0'}
-              {...transaction}
-            />
-          )
-        })}
-      </Box>
+      <TransactionCardErrorBoundaryWithSuspense onReset={reset}>
+        <LastestTransactiosList />
+      </TransactionCardErrorBoundaryWithSuspense>
+    </Box>
+  )
+}
+
+const LastestTransactiosList = () => {
+  const { data } = useGetTransactions()
+
+  return (
+    <Box>
+      {data?.data.map((transaction, index) => {
+        return (
+          <TransactionCard
+            key={transaction.title}
+            marginTop={index !== 0 ? 'xl' : '0'}
+            {...transaction}
+          />
+        )
+      })}
     </Box>
   )
 }
