@@ -160,9 +160,17 @@ const LatestTransactionsSection = () => {
 const LastestTransactiosList = () => {
   const { data } = useGetTransactions()
 
+  if (!data) {
+    return null
+  }
+
+  const transactionsOrderedByMostRecent = [...data.data].sort((a, b) => {
+    return new Date(b.date).valueOf() - new Date(a.date).valueOf()
+  })
+
   return (
     <Box>
-      {data?.data.map((transaction, index) => {
+      {transactionsOrderedByMostRecent.map((transaction, index) => {
         return (
           <TransactionCard
             key={transaction.title}
