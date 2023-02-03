@@ -76,7 +76,7 @@ export const TextInputBase = ({
           paddingVertical="md"
           placeholderTextColor={theme.colors.$inputPlaceholder}
           secureTextEntry={showInputText}
-          selectionColor={theme.colors.$brand}
+          selectionColor={theme.colors.blueLight}
           style={theme.textVariants.$body2}
           {...rest}
         />
