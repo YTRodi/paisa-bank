@@ -21,6 +21,7 @@
     "@shopify/restyle": "^2.2.0",
     "@tanstack/react-query": "^4.24.4",
     "axios": "^1.3.1",
+    "date-fns": "^2.29.3",
     "expo": "~47.0.12",
     "expo-checkbox": "~2.2.2",
     "expo-linear-gradient": "~12.0.1",

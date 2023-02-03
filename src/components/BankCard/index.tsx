@@ -5,6 +5,7 @@ import { Text } from '../Text'
 import { STRINGS } from '~/resources'
 import { type ColorProps } from '~/styles/theme'
 import { IconEnum } from '~/types'
+import { formatExpiryDate } from '~/utils'
 
 export interface BankCardProps {
   issuer: string
@@ -179,8 +180,7 @@ const BankCardFooter = ({
           fontFamily="Poppins_500Medium"
           variant="$small"
         >
-          {/* TODO: format this date! */}
-          {expDate}
+          {formatExpiryDate(expDate)}
         </Text>
       </Box>
     </Box>
