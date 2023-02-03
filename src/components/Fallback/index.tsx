@@ -3,25 +3,22 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { type FallbackProps as ReactErrorBoundaryFallbackProps } from 'react-error-boundary'
 
-import { Box, ShadowBox } from '../Box'
-import { Button } from '../Button'
-import { Text } from '../Text'
+import { Card, type CardProps } from '../Card'
 
 import { STRINGS } from '~/resources'
 import { type ApiErrorResponse } from '~/types'
 
-export type FallbackProps = ReactErrorBoundaryFallbackProps & {
-  title?: string
-  body?: string
-}
+export type FallbackProps = ReactErrorBoundaryFallbackProps & CardProps
 
 const { DEFAULT_TITLE, TRY_AGAIN_LABEL } = STRINGS.FALLBACK
 
 export const Fallback = ({
   error,
   resetErrorBoundary,
+
+  action = { label: TRY_AGAIN_LABEL, onPress: resetErrorBoundary },
   title = DEFAULT_TITLE,
-  body,
+  ...rest
 }: FallbackProps) => {
   useEffect(() => {
     // Report to error tracking service
@@ -34,31 +31,5 @@ export const Fallback = ({
     console.log(error)
   }, [error])
 
-  return (
-    <Box marginTop="3xl" paddingHorizontal="md">
-      <ShadowBox
-        alignItems="center"
-        backgroundColor="$mainBackground"
-        borderRadius="md"
-        padding="md"
-      >
-        <Box marginBottom="sm">
-          <Text
-            color="$cardTitle"
-            marginBottom={body ? 'xxs' : '0'}
-            textAlign="center"
-            variant="$subheading"
-          >
-            {title}
-          </Text>
-          {body ? (
-            <Text color="$cardBody" textAlign="center" variant="$body1">
-              {body}
-            </Text>
-          ) : null}
-        </Box>
-        <Button label={TRY_AGAIN_LABEL} onPress={resetErrorBoundary} />
-      </ShadowBox>
-    </Box>
-  )
+  return <Card action={action} title={title} {...rest} />
 }
