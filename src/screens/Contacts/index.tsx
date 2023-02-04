@@ -128,22 +128,9 @@ const ContactsSection = () => {
       />
       <Box>
         {contacts.length === 0 ? (
-          debouncedQuery ? (
-            <Box marginTop="xl">
-              <Card
-                body={NO_CONTACTS_BY_QUERY_BODY}
-                title={NO_CONTACTS_BY_QUERY_TITLE}
-              />
-            </Box>
-          ) : (
-            <Box marginTop="xl">
-              <Card
-                action={{ label: NO_CONTACTS_ACTION_LABEL }}
-                body={NO_CONTACTS_BODY}
-                title={NO_CONTACTS_TITLE}
-              />
-            </Box>
-          )
+          <Box marginTop="xl">
+            <EmptyCard debouncedQuery={debouncedQuery} />
+          </Box>
         ) : (
           <>
             <ContactsDivider label={DIVIDER_BY.RECENTS} />
@@ -161,6 +148,25 @@ const ContactsSection = () => {
         )}
       </Box>
     </Box>
+  )
+}
+
+const EmptyCard = ({ debouncedQuery }: { debouncedQuery: string }) => {
+  if (debouncedQuery) {
+    return (
+      <Card
+        body={NO_CONTACTS_BY_QUERY_BODY}
+        title={NO_CONTACTS_BY_QUERY_TITLE}
+      />
+    )
+  }
+
+  return (
+    <Card
+      action={{ label: NO_CONTACTS_ACTION_LABEL }}
+      body={NO_CONTACTS_BODY}
+      title={NO_CONTACTS_TITLE}
+    />
   )
 }
 
