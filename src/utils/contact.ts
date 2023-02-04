@@ -17,3 +17,24 @@ export const getRecentContacts = (
     return parsedAddedDate.getMonth() === currentMonth
   })
 }
+
+/**
+ * Returns a filtered array by query
+ * @param contacts Array of contacts
+ * @param query A string input to compare
+ * @returns Filtered contacts
+ */
+export const getContactsByQuery = (
+  contacts: ContactEntity[],
+  query: string
+): ContactEntity[] => {
+  return contacts.filter((contact) => {
+    const lowerCaseDebounceQuery = query.toLowerCase()
+
+    return (
+      contact.name.toLowerCase().includes(lowerCaseDebounceQuery) ||
+      contact.lastName.toLowerCase().includes(lowerCaseDebounceQuery) ||
+      contact.phone.toLowerCase().includes(lowerCaseDebounceQuery)
+    )
+  })
+}
