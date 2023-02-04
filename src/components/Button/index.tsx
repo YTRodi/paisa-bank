@@ -18,7 +18,7 @@ export const BaseButton = createBox<Theme, TouchableOpacityProps>(
   TouchableOpacity
 )
 
-type ButtonProps = ComponentProps<typeof BaseButton> & {
+export type ButtonProps = ComponentProps<typeof BaseButton> & {
   label: string
   isLoading?: boolean
 }
@@ -48,7 +48,7 @@ export const Button = ({
         {isLoading ? (
           <ActivityIndicator color={theme.colors.$buttonText} />
         ) : (
-          <Text color="$buttonText" variant="$body1">
+          <Text color="$buttonText" textAlign="center" variant="$body1">
             {label}
           </Text>
         )}

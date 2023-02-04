@@ -1,4 +1,8 @@
-import { type TransactionEntity, type CardEntity } from '../entities'
+import {
+  type TransactionEntity,
+  type CardEntity,
+  type ContactEntity,
+} from '../entities'
 
 export interface GetCardsResponse {
   success: boolean
@@ -8,4 +12,9 @@ export interface GetCardsResponse {
 export interface GetTransactionsResponse {
   success: boolean
   data: TransactionEntity[]
+}
+
+export interface GetContactsResponse {
+  success: boolean
+  data: ContactEntity[]
 }

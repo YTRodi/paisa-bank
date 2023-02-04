@@ -54,12 +54,22 @@ export const STRINGS = {
       PLACEHOLDER: 'Ingresa un nombre o un número',
     },
     DIVIDER_BY: {
-      RECENTS: 'Recents',
-      ALL: 'All',
+      RECENTS: 'Recientes',
+      ALL: 'Todos',
+    },
+    NO_CONTACTS_BY_QUERY_TITLE: 'No se encontraron resultados',
+    NO_CONTACTS_BY_QUERY_BODY: 'Intenta user otras palabras!',
+    NO_CONTACTS_TITLE: 'No tienes contactos',
+    NO_CONTACTS_BODY: 'Intenta agregar uno!',
+    NO_CONTACTS_ACTION_LABEL: 'Agregar',
+    NO_RECENT_CONTACTS: 'No hay contactos recientes',
+    FALLBACK: {
+      TITLE: 'No se pudieron cargar los contactos',
     },
   },
 
   // Components
+  SKELETON: 'SKELETON',
   BANK_CARD: {
     BALANCE: 'Balance',
     EXPIRY_DATE: 'Exp. Date',
@@ -80,7 +90,6 @@ export const STRINGS = {
       SHOW_PASSWORD: 'Mostrar contraseña',
     },
   },
-
   FALLBACK: {
     DEFAULT_TITLE: 'Ocurrió un error',
     TRY_AGAIN_LABEL: 'Intentar de nuevo',

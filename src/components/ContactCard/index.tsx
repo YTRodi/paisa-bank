@@ -1,4 +1,5 @@
 import { createBox } from '@shopify/restyle'
+import { Skeleton } from 'moti/skeleton'
 import React, { type ComponentProps } from 'react'
 
 import { Box, ShadowBox } from '../Box'
@@ -29,22 +30,27 @@ export const ContactCard = ({
   }
 
   return (
-    <ShadowBox
-      alignItems="center"
-      backgroundColor="$mainBackground"
-      borderRadius="md"
-      flex={1}
-      flexDirection="row"
-      paddingHorizontal="md"
-      paddingVertical="xl"
-      {...rest}
+    <Skeleton
+      colorMode="light" // TODO: use CURRENT_THEME
     >
-      <ContactCardAbbreviatedNameAndLastName
-        lastName={contactCardProps.lastName}
-        name={contactCardProps.name}
-      />
-      <ContactCardInfomation {...contactCardProps} />
-    </ShadowBox>
+      <ShadowBox
+        alignItems="center"
+        backgroundColor="$mainBackground"
+        borderRadius="md"
+        flex={1}
+        flexDirection="row"
+        paddingHorizontal="md"
+        paddingVertical="xl"
+        {...rest}
+      >
+        <ContactCardAbbreviatedNameAndLastName
+          lastName={contactCardProps.lastName}
+          name={contactCardProps.name}
+        />
+
+        <ContactCardInfomation {...contactCardProps} />
+      </ShadowBox>
+    </Skeleton>
   )
 }
 

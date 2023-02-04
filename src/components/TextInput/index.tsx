@@ -1,4 +1,5 @@
 import { createBox } from '@shopify/restyle'
+import { Skeleton } from 'moti/skeleton'
 import { type ComponentProps } from 'react'
 import {
   Controller,
@@ -33,6 +34,7 @@ type TextInputBaseProps = RNTextInputBaseProps & {
   rightIcon?: IconEnum
   onPressLeftIcon?: () => void
   onPressRightIcon?: () => void
+  isLoading?: boolean
 }
 
 export const TextInputBase = ({
@@ -42,6 +44,7 @@ export const TextInputBase = ({
   rightIcon,
   onPressLeftIcon,
   onPressRightIcon,
+  isLoading,
 
   autoCapitalize = 'none',
   secureTextEntry = false,
@@ -51,59 +54,63 @@ export const TextInputBase = ({
   const [showInputText, toggle] = useToggle(secureTextEntry)
 
   return (
-    <Box>
-      <ShadowBox
-        alignItems="center"
-        backgroundColor="$mainBackground"
-        borderRadius="sm"
-        flexDirection="row"
-        paddingHorizontal="md"
-      >
-        {leftIcon ? (
-          <BaseButton
-            activeOpacity={0.7}
-            disabled={!onPressLeftIcon}
-            onPress={onPressLeftIcon}
-          >
-            <Icon color="$inputPlaceholder" icon={leftIcon} size={14} />
-          </BaseButton>
-        ) : null}
-        <RNTextInputBase
-          autoCapitalize={autoCapitalize}
-          flex={1}
-          paddingLeft={leftIcon ? 'md' : '0'}
-          paddingRight={rightIcon ? 'md' : '0'}
-          paddingVertical="md"
-          placeholderTextColor={theme.colors.$inputPlaceholder}
-          secureTextEntry={showInputText}
-          selectionColor={theme.colors.$brand}
-          style={theme.textVariants.$body2}
-          {...rest}
-        />
-        {rightIcon ? (
-          <BaseButton
-            activeOpacity={0.7}
-            disabled={!onPressRightIcon}
-            onPress={onPressRightIcon}
-          >
-            <Icon color="$inputPlaceholder" icon={rightIcon} size={14} />
-          </BaseButton>
-        ) : null}
-      </ShadowBox>
-      {hasError ? (
-        <Text color="$inputError" marginTop="xs" variant="$small">
-          {error}
-        </Text>
-      ) : null}
-      {secureTextEntry ? (
-        <Box alignItems="center" flexDirection="row" marginTop="md">
-          <CheckboxBase value={!showInputText} onChange={toggle} />
-          <Text color="$inputHint" marginLeft="xs">
-            {HINTS.SHOW_PASSWORD}
+    <Skeleton
+      colorMode="light" // TODO: use CURRENT_THEME
+    >
+      <Box>
+        <ShadowBox
+          alignItems="center"
+          backgroundColor="$mainBackground"
+          borderRadius="sm"
+          flexDirection="row"
+          paddingHorizontal="md"
+        >
+          {leftIcon ? (
+            <BaseButton
+              activeOpacity={0.7}
+              disabled={!onPressLeftIcon}
+              onPress={onPressLeftIcon}
+            >
+              <Icon color="$inputPlaceholder" icon={leftIcon} size={14} />
+            </BaseButton>
+          ) : null}
+          <RNTextInputBase
+            autoCapitalize={autoCapitalize}
+            flex={1}
+            paddingLeft={leftIcon ? 'md' : '0'}
+            paddingRight={rightIcon ? 'md' : '0'}
+            paddingVertical="md"
+            placeholderTextColor={theme.colors.$inputPlaceholder}
+            secureTextEntry={showInputText}
+            selectionColor={theme.colors.blueLight}
+            style={theme.textVariants.$body2}
+            {...rest}
+          />
+          {rightIcon ? (
+            <BaseButton
+              activeOpacity={0.7}
+              disabled={!onPressRightIcon}
+              onPress={onPressRightIcon}
+            >
+              <Icon color="$inputPlaceholder" icon={rightIcon} size={14} />
+            </BaseButton>
+          ) : null}
+        </ShadowBox>
+        {hasError ? (
+          <Text color="$inputError" marginTop="xs" variant="$small">
+            {error}
           </Text>
-        </Box>
-      ) : null}
-    </Box>
+        ) : null}
+        {secureTextEntry ? (
+          <Box alignItems="center" flexDirection="row" marginTop="md">
+            <CheckboxBase value={!showInputText} onChange={toggle} />
+            <Text color="$inputHint" marginLeft="xs">
+              {HINTS.SHOW_PASSWORD}
+            </Text>
+          </Box>
+        ) : null}
+      </Box>
+    </Skeleton>
   )
 }
 

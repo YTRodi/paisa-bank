@@ -118,11 +118,11 @@ const HomeHeader = () => {
 }
 
 const BankCardsSection = () => {
-  const { data } = useGetCardsQuery()
+  const getCardQuery = useGetCardsQuery()
 
   return (
     <GestureHandlerRootView>
-      <BankCardsCarousel data={data?.data ?? []} />
+      <BankCardsCarousel data={getCardQuery.data?.data ?? []} />
     </GestureHandlerRootView>
   )
 }
@@ -158,13 +158,15 @@ const LatestTransactionsSection = () => {
 }
 
 const LastestTransactiosList = () => {
-  const { data } = useGetTransactions()
+  const getTransactionsQuery = useGetTransactions()
 
-  if (!data) {
+  if (!getTransactionsQuery.data) {
     return null
   }
 
-  const transactionsOrderedByMostRecent = [...data.data].sort((a, b) => {
+  const transactionsOrderedByMostRecent = [
+    ...getTransactionsQuery.data.data,
+  ].sort((a, b) => {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
