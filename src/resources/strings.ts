@@ -57,6 +57,8 @@ export const STRINGS = {
       RECENTS: 'Recientes',
       ALL: 'Todos',
     },
+    NO_CONTACTS_BY_QUERY_TITLE: 'No se encontraron resultados',
+    NO_CONTACTS_BY_QUERY_BODY: 'Intenta user otras palabras!',
     NO_CONTACTS_TITLE: 'No tienes contactos',
     NO_CONTACTS_BODY: 'Intenta agregar uno!',
     NO_CONTACTS_ACTION_LABEL: 'Agregar',
