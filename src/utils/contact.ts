@@ -19,6 +19,27 @@ export const getRecentContacts = (
 }
 
 /**
+ * Returns an array of contacts sorted by name and lastName in desc order
+ * @param contacts Array of contacts
+ * @returns Contacts added this month
+ */
+export const sortRecentContacts = (
+  contacts: ContactEntity[]
+): ContactEntity[] => {
+  return contacts.sort((a, b) => {
+    if (a.name < b.name && a.lastName < b.lastName) {
+      return -1
+    }
+
+    if (a.name > b.name && a.lastName < b.lastName) {
+      return 1
+    }
+
+    return 0
+  })
+}
+
+/**
  * Returns a filtered array by query
  * @param contacts Array of contacts
  * @param query A string input to compare

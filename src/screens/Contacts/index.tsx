@@ -30,7 +30,11 @@ import {
   type ContactsScreenProps,
   type ContactEntity,
 } from '~/types'
-import { getContactsByQuery, getRecentContacts } from '~/utils'
+import {
+  getContactsByQuery,
+  getRecentContacts,
+  sortRecentContacts,
+} from '~/utils'
 
 const { CONTACTS, SKELETON } = STRINGS
 const {
@@ -115,7 +119,7 @@ const ContactsSection = () => {
     )
   }, [debouncedQuery])
 
-  const contacts = filteredContacts
+  const contacts = sortRecentContacts(filteredContacts)
   const recentContacts = getRecentContacts(contacts)
 
   return (
