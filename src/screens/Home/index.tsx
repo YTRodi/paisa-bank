@@ -3,8 +3,8 @@ import {
   useQueryClient,
   useQueryErrorResetBoundary,
 } from '@tanstack/react-query'
+import { MotiView } from 'moti'
 import { useState } from 'react'
-import { RefreshControl } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import {
@@ -18,15 +18,19 @@ import {
   BankCardsCarousel,
   BankCardsErrorBoundaryWithSuspense,
   TransactionCardErrorBoundaryWithSuspense,
+  RefreshControl,
 } from '~/components'
 import { cardKeys, transactionKeys } from '~/constants'
-import { useGetCardsQuery, useGetTransactions } from '~/hooks'
+import { useFadeIn, useGetCardsQuery, useGetTransactions } from '~/hooks'
 import { STRINGS } from '~/resources'
+import { useAuthStore } from '~/store'
 import { IconEnum, type HomeScreenProps, type ServiceType } from '~/types'
+import { width } from '~/utils'
 
-const { GREETING, NAME, SECTIONS } = STRINGS.HOME
+const { GREETING, SECTIONS } = STRINGS.HOME
 const { SERVICES, TRANSACTIONS } = SECTIONS
 
+const DEFAULT_DELAY = 150
 const SERVICES_LIST: ServiceType[] = [
   {
     name: SERVICES.ACTION_NAMES.FIRST,
@@ -94,26 +98,31 @@ export const Home = (props: Props) => {
 }
 
 const HomeHeader = () => {
+  const authStore = useAuthStore()
+  const fadeInState = useFadeIn()
+
   return (
-    <Box
-      alignItems="center"
-      flexDirection="row"
-      justifyContent="space-between"
-      paddingHorizontal="md"
-    >
-      <Box>
-        <Text fontFamily="Poppins_400Regular" variant="$body1">
-          {GREETING}
-        </Text>
-        <Text fontFamily="Poppins_600SemiBold" variant="$heading">
-          {NAME}
-        </Text>
+    <MotiView state={fadeInState} transition={{ delay: DEFAULT_DELAY }}>
+      <Box
+        alignItems="center"
+        flexDirection="row"
+        justifyContent="space-between"
+        paddingHorizontal="md"
+      >
+        <Box>
+          <Text fontFamily="Poppins_400Regular" variant="$body1">
+            {GREETING}
+          </Text>
+          <Text fontFamily="Poppins_600SemiBold" variant="$heading">
+            {authStore.userName}
+          </Text>
+        </Box>
+        <Box flexDirection="row">
+          <Icon icon={IconEnum.SEARCH} marginRight="xl" />
+          <Icon icon={IconEnum.NOTIFICATION} />
+        </Box>
       </Box>
-      <Box flexDirection="row">
-        <Icon icon={IconEnum.SEARCH} marginRight="xl" />
-        <Icon icon={IconEnum.NOTIFICATION} />
-      </Box>
-    </Box>
+    </MotiView>
   )
 }
 
@@ -128,14 +137,24 @@ const BankCardsSection = () => {
 }
 
 const Services = () => {
+  const fadeInState = useFadeIn()
+
   return (
     <Box>
       <Text color="$screenSubtitle" marginBottom="xl" variant="$subheading">
         {SERVICES.TITLE}
       </Text>
       <Box flexDirection="row" justifyContent="space-between">
-        {SERVICES_LIST.map(({ name, ...rest }) => {
-          return <IconicButton key={name} label={name} size={24} {...rest} />
+        {SERVICES_LIST.map(({ name, ...rest }, index) => {
+          return (
+            <MotiView
+              key={name}
+              state={fadeInState}
+              transition={{ delay: index * DEFAULT_DELAY }}
+            >
+              <IconicButton label={name} size={24} {...rest} />
+            </MotiView>
+          )
         })}
       </Box>
     </Box>
@@ -174,11 +193,17 @@ const LastestTransactiosList = () => {
     <Box>
       {transactionsOrderedByMostRecent.map((transaction, index) => {
         return (
-          <TransactionCard
+          <MotiView
             key={transaction.title}
-            marginTop={index !== 0 ? 'xl' : '0'}
-            {...transaction}
-          />
+            animate={{ translateX: 0, scale: 1 }}
+            from={{ translateX: -width, scale: 0.5 }}
+            transition={{ delay: index * DEFAULT_DELAY }}
+          >
+            <TransactionCard
+              marginTop={index !== 0 ? 'xl' : '0'}
+              {...transaction}
+            />
+          </MotiView>
         )
       })}
     </Box>
