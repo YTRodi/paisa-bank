@@ -1,4 +1,4 @@
-# Paisabank Challenge
+# Paisabank
 
 ## Tech
 * [React](https://beta.reactjs.org/) + hooks
