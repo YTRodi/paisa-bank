@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { MotiView } from 'moti'
 import { type Control, useForm, type FormState } from 'react-hook-form'
 
 import {
@@ -12,7 +13,7 @@ import {
   Checkbox,
   ScreenLayout,
 } from '~/components'
-import { useLoginMutation } from '~/hooks'
+import { useFadeIn, useLoginMutation } from '~/hooks'
 import { STRINGS } from '~/resources'
 import { LOGIN_SCHEMA } from '~/schemas'
 import { useAuthStore } from '~/store'
@@ -48,6 +49,7 @@ export const Login = (props: Props) => {
 }
 
 const LoginForm = () => {
+  const fadeInState = useFadeIn()
   const {
     control,
     handleSubmit,
@@ -55,6 +57,7 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LOGIN_SCHEMA),
   })
+
   const authStore = useAuthStore()
   const loginMutation = useLoginMutation()
 
@@ -77,16 +80,18 @@ const LoginForm = () => {
   }
 
   return (
-    <Box flex={1} paddingHorizontal="md">
-      <Box flex={1} justifyContent="center">
-        <LoginHeader />
-        <LoginFormFields control={control} errors={errors} />
+    <MotiView state={fadeInState} style={{ flex: 1 }}>
+      <Box flex={1} paddingHorizontal="md">
+        <Box flex={1} justifyContent="center">
+          <LoginHeader />
+          <LoginFormFields control={control} errors={errors} />
+        </Box>
+        <LoginFormFooter
+          isLoading={loginMutation.isLoading}
+          onSubmit={handleSubmit(onSubmit)}
+        />
       </Box>
-      <LoginFormFooter
-        isLoading={loginMutation.isLoading}
-        onSubmit={handleSubmit(onSubmit)}
-      />
-    </Box>
+    </MotiView>
   )
 }
 

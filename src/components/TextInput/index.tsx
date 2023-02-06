@@ -1,4 +1,5 @@
 import { createBox } from '@shopify/restyle'
+import { AnimatePresence, MotiView } from 'moti'
 import { Skeleton } from 'moti/skeleton'
 import { type ComponentProps } from 'react'
 import {
@@ -96,11 +97,19 @@ export const TextInputBase = ({
             </BaseButton>
           ) : null}
         </ShadowBox>
-        {hasError ? (
-          <Text color="$inputError" marginTop="xs" variant="$small">
-            {error}
-          </Text>
-        ) : null}
+        <AnimatePresence>
+          {hasError ? (
+            <MotiView
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              from={{ opacity: 0, scale: 0.9 }}
+            >
+              <Text color="$inputError" marginTop="xs" variant="$small">
+                {error}
+              </Text>
+            </MotiView>
+          ) : null}
+        </AnimatePresence>
         {secureTextEntry ? (
           <Box alignItems="center" flexDirection="row" marginTop="md">
             <CheckboxBase value={!showInputText} onChange={toggle} />
