@@ -24,6 +24,12 @@ Others
 * [Eslint](https://eslint.org/)
 * [Prettier](https://prettier.io/)
 
+## Commands
+    git clone https://github.com/YTRodi/paisa-bank.git &&
+    cd paisa-bank &&
+    yarn &&
+    yarn start
+
 ## Available scripts
 Runs the app in development mode.
 ```sh		
@@ -37,12 +43,6 @@ iOS:
 ```sh		
 yarn ios
   ```
-
-## Commands
-    git clone https://github.com/YTRodi/paisa-bank.git &&
-    cd paisa-bank &&
-    yarn &&
-    yarn start
-    
+ 
 ---
 Made with ❤️ by [YTRodi](https://github.com/YTRodi)
