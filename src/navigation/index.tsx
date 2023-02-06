@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { type EventArg } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Audio } from 'expo-av'
 import { Alert } from 'react-native'
 
 import { TabBar } from '~/components'
@@ -51,7 +52,19 @@ const AuthenticatedBottomTabNavigator = () => {
       TITLE,
       MESSAGE,
       [
-        { text: FIRST_ACTION, style: 'destructive', onPress: logout },
+        {
+          text: FIRST_ACTION,
+          style: 'destructive',
+          onPress: async () => {
+            const { sound } = await Audio.Sound.createAsync(
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              require('../../assets/sounds/logout.wav')
+            )
+            await sound.playAsync()
+
+            logout()
+          },
+        },
         { text: SECOND_ACTION, style: 'cancel' },
       ],
       { cancelable: true }

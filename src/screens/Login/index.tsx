@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Audio } from 'expo-av'
 import { MotiView } from 'moti'
 import { type Control, useForm, type FormState } from 'react-hook-form'
 
@@ -56,15 +57,26 @@ const LoginForm = () => {
     formState: { isValid, errors },
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LOGIN_SCHEMA),
+    // TODO: remove this
+    defaultValues: {
+      email: 'soypaisanx@paisanos.io',
+      password: 'PAISANX2023!$',
+    },
   })
 
   const authStore = useAuthStore()
   const loginMutation = useLoginMutation()
 
-  const onSubmit = ({ email, password, remindMe }: LoginFormValues) => {
+  const onSubmit = async ({ email, password, remindMe }: LoginFormValues) => {
     if (!isValid) {
       return
     }
+
+    const { sound } = await Audio.Sound.createAsync(
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require('../../../assets/sounds/login.mp3')
+    )
+    await sound.playAsync()
 
     loginMutation.mutate(
       { email, password },
@@ -89,6 +101,14 @@ const LoginForm = () => {
         <LoginFormFooter
           isLoading={loginMutation.isLoading}
           onSubmit={handleSubmit(onSubmit)}
+          // onSubmit={async () => {
+          //   const { sound } = await Audio.Sound.createAsync(
+          //     require('../../../assets/sounds/login.mp3')
+          //   )
+          //   await sound.playAsync()
+
+          //   handleSubmit(onSubmit)
+          // }}
         />
       </Box>
     </MotiView>
