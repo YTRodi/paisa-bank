@@ -57,11 +57,6 @@ const LoginForm = () => {
     formState: { isValid, errors },
   } = useForm<LoginFormValues>({
     resolver: yupResolver(LOGIN_SCHEMA),
-    // TODO: remove this
-    defaultValues: {
-      email: 'soypaisanx@paisanos.io',
-      password: 'PAISANX2023!$',
-    },
   })
 
   const authStore = useAuthStore()
