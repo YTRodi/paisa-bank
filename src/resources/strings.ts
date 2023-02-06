@@ -24,7 +24,6 @@ export const STRINGS = {
   },
   HOME: {
     GREETING: 'Hola',
-    NAME: 'Paisanx', // TODO: should come from the authenticated user
     SECTIONS: {
       SERVICES: {
         TITLE: 'Servicios',
