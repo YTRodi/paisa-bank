@@ -49,7 +49,7 @@ export const Login = (props: Props) => {
 }
 
 const LoginForm = () => {
-  const fadeInState = useFadeIn()
+  const { fadeInState } = useFadeIn()
   const {
     control,
     handleSubmit,

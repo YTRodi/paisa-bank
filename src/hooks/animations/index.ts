@@ -2,7 +2,7 @@
 import { useAnimationState } from 'moti'
 
 export const useFadeIn = () => {
-  return useAnimationState({
+  const fadeInState = useAnimationState({
     from: {
       opacity: 0,
     },
@@ -10,4 +10,6 @@ export const useFadeIn = () => {
       opacity: 1,
     },
   })
+
+  return { fadeInState }
 }

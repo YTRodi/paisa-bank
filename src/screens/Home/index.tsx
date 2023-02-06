@@ -99,7 +99,7 @@ export const Home = (props: Props) => {
 
 const HomeHeader = () => {
   const authStore = useAuthStore()
-  const fadeInState = useFadeIn()
+  const { fadeInState } = useFadeIn()
 
   return (
     <MotiView state={fadeInState} transition={{ delay: DEFAULT_DELAY }}>
@@ -137,7 +137,7 @@ const BankCardsSection = () => {
 }
 
 const Services = () => {
-  const fadeInState = useFadeIn()
+  const { fadeInState } = useFadeIn()
 
   return (
     <Box>
